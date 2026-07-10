@@ -14,6 +14,12 @@ type LibraryItem = {
   tags: string[];
 };
 
+type ProductCheckItem = {
+  prompt: string;
+  yesScore: number;
+  noScore: number;
+};
+
 const navigation: { id: View; label: string }[] = [
   { id: "home", label: "学习首页" },
   { id: "courses", label: "课程资料" },
@@ -295,71 +301,79 @@ const productCheckSections = [
   {
     title: "一、客户进店阶段：我们卖的是产品，还是解决方案？",
     items: [
-      "客户进店后，第一句话是否是在介绍产品品牌、价格、优惠？",
-      "是否经常出现客户问：“这个多少钱？”“有没有便宜一点的？”",
-      "是否有明确了解客户家庭成员、生活习惯、装修需求？",
-      "是否先帮助客户规划未来生活场景，而不是直接推荐产品？",
-      "是否有一套标准化需求诊断流程？",
+      { prompt: "客户进店后，第一句话是否是在介绍产品品牌、价格、优惠？", yesScore: 0, noScore: 1 },
+      { prompt: "是否经常出现客户问：“这个多少钱？”“有没有便宜一点的？”", yesScore: 0, noScore: 1 },
+      { prompt: "是否有明确了解客户家庭成员、生活习惯、装修需求？", yesScore: 1, noScore: 0 },
+      { prompt: "是否先帮助客户规划未来生活场景，而不是直接推荐产品？", yesScore: 1, noScore: 0 },
+      { prompt: "是否有一套标准化需求诊断流程？", yesScore: 1, noScore: 0 },
     ],
     note: "如果前三项经常发生，说明门店大概率仍停留在产品销售模式。",
   },
   {
     title: "二、销售沟通阶段：客户为什么选择我们？",
     items: [
-      "销售是否能讲清楚产品背后的生活价值？",
-      "是否能够解释“为什么这样搭配，而不是简单推荐单品”？",
-      "是否有自己的设计理念、搭配方法或服务体系？",
-      "客户比较价格时，是否只能强调质量和品牌？",
-      "是否能让客户理解选择我们的核心原因不是低价？",
+      { prompt: "销售是否能讲清楚产品背后的生活价值？", yesScore: 1, noScore: 0 },
+      { prompt: "是否能够解释“为什么这样搭配，而不是简单推荐单品”？", yesScore: 1, noScore: 0 },
+      { prompt: "是否有自己的设计理念、搭配方法或服务体系？", yesScore: 1, noScore: 0 },
+      { prompt: "客户比较价格时，是否只能强调质量和品牌？", yesScore: 0, noScore: 1 },
+      { prompt: "是否能让客户理解选择我们的核心原因不是低价？", yesScore: 1, noScore: 0 },
     ],
   },
   {
     title: "三、方案呈现阶段：展示的是产品，还是家的结果？",
     items: [
-      "给客户看的是否只是产品图片、样册、价格表？",
-      "是否能够呈现完整空间效果？",
-      "是否有针对客户家的个性化搭配方案？",
-      "是否能够展示真实落地案例？",
-      "是否能够讲清楚设计、材质、预算之间的关系？",
+      { prompt: "给客户看的是否只是产品图片、样册、价格表？", yesScore: 0, noScore: 1 },
+      { prompt: "是否能够呈现完整空间效果？", yesScore: 1, noScore: 0 },
+      { prompt: "是否有针对客户家的个性化搭配方案？", yesScore: 1, noScore: 0 },
+      { prompt: "是否能够展示真实落地案例？", yesScore: 1, noScore: 0 },
+      { prompt: "是否能够讲清楚设计、材质、预算之间的关系？", yesScore: 1, noScore: 0 },
     ],
   },
   {
     title: "四、成交阶段：客户买的是产品，还是信任？",
     items: [
-      "客户成交主要原因是不是“价格合适”？",
-      "是否经常需要靠优惠、赠品推动成交？",
-      "客户是否认可专业能力，而不是只关注产品价格？",
-      "是否有客户主动转介绍？",
-      "是否建立了长期客户关系，而不是一次交易？",
+      { prompt: "客户成交主要原因是不是“价格合适”？", yesScore: 0, noScore: 1 },
+      { prompt: "是否经常需要靠优惠、赠品推动成交？", yesScore: 0, noScore: 1 },
+      { prompt: "客户是否认可专业能力，而不是只关注产品价格？", yesScore: 1, noScore: 0 },
+      { prompt: "是否有客户主动转介绍？", yesScore: 1, noScore: 0 },
+      { prompt: "是否建立了长期客户关系，而不是一次交易？", yesScore: 1, noScore: 0 },
     ],
   },
   {
     title: "五、团队能力阶段：员工是在卖货，还是在做顾问？",
     items: [
-      "员工是否具备空间搭配能力？",
-      "员工是否懂客户需求分析？",
-      "员工是否能主动创造客户需求？",
-      "员工是否有自己的案例讲解能力？",
-      "员工是否能解决客户装修过程中的顾虑？",
+      { prompt: "员工是否具备空间搭配能力？", yesScore: 1, noScore: 0 },
+      { prompt: "员工是否懂客户需求分析？", yesScore: 1, noScore: 0 },
+      { prompt: "员工是否能主动创造客户需求？", yesScore: 1, noScore: 0 },
+      { prompt: "员工是否有自己的案例讲解能力？", yesScore: 1, noScore: 0 },
+      { prompt: "员工是否能解决客户装修过程中的顾虑？", yesScore: 1, noScore: 0 },
     ],
   },
 ];
 
+const productCheckItems: ProductCheckItem[] = productCheckSections.flatMap((section) => section.items);
+
 const productCheckResults = [
   {
-    range: "0-10分",
+    minScore: 0,
+    maxScore: 8,
+    range: "0-8分",
     title: "产品销售型门店",
     points: ["客户主要问价格", "成交依靠优惠", "容易被同行比价", "利润空间越来越低"],
     next: "核心问题：不是产品不好，而是客户看不到你的价值。",
   },
   {
-    range: "11-20分",
+    minScore: 9,
+    maxScore: 16,
+    range: "9-16分",
     title: "正在转型阶段",
     points: ["开始重视设计和服务", "有案例、有方案", "但成交逻辑仍偏产品"],
     next: "下一步：建立标准化设计服务流程，让客户从“比较价格”转向“认可价值”。",
   },
   {
-    range: "21-30分",
+    minScore: 17,
+    maxScore: 25,
+    range: "17-25分",
     title: "顾问式销售门店",
     points: ["能诊断客户需求", "能提供整体解决方案", "客户购买的是专业和信任"],
     next: "下一步：强化品牌影响力，提高客单价和转介绍。",
@@ -375,24 +389,26 @@ const productCheckQuestions = [
 
 const productCheckText = `门店是否还在卖产品自检表
 
+本表共25题，满分25分。计分规则：体现顾问式销售能力的正向题，是=1分、否=0分；暴露仍在卖产品的反向题，是=0分、否=1分。分数越高，代表门店越接近顾问式销售。
+
 请按五个阶段逐项回答“是/否”，并记录得分。
 
 一、客户进店阶段：我们卖的是产品，还是解决方案？
-${productCheckSections[0].items.map((item, index) => `${index + 1}. ${item}`).join("\n")}
+${productCheckSections[0].items.map((item, index) => `${index + 1}. ${item.prompt}（是=${item.yesScore}分，否=${item.noScore}分）`).join("\n")}
 
 二、销售沟通阶段：客户为什么选择我们？
-${productCheckSections[1].items.map((item, index) => `${index + 1}. ${item}`).join("\n")}
+${productCheckSections[1].items.map((item, index) => `${index + 1}. ${item.prompt}（是=${item.yesScore}分，否=${item.noScore}分）`).join("\n")}
 
 三、方案呈现阶段：展示的是产品，还是家的结果？
-${productCheckSections[2].items.map((item, index) => `${index + 1}. ${item}`).join("\n")}
+${productCheckSections[2].items.map((item, index) => `${index + 1}. ${item.prompt}（是=${item.yesScore}分，否=${item.noScore}分）`).join("\n")}
 
 四、成交阶段：客户买的是产品，还是信任？
-${productCheckSections[3].items.map((item, index) => `${index + 1}. ${item}`).join("\n")}
+${productCheckSections[3].items.map((item, index) => `${index + 1}. ${item.prompt}（是=${item.yesScore}分，否=${item.noScore}分）`).join("\n")}
 
 五、团队能力阶段：员工是在卖货，还是在做顾问？
-${productCheckSections[4].items.map((item, index) => `${index + 1}. ${item}`).join("\n")}
+${productCheckSections[4].items.map((item, index) => `${index + 1}. ${item.prompt}（是=${item.yesScore}分，否=${item.noScore}分）`).join("\n")}
 
-结果判断：0-10分产品销售型门店；11-20分正在转型阶段；21-30分顾问式销售门店。
+结果判断：0-8分产品销售型门店；9-16分正在转型阶段；17-25分顾问式销售门店。
 
 最终判断：如果客户离开门店后只记住“你家某某产品多少钱”，说明你还在卖产品；如果客户记住“这家店懂我的需求，能帮我打造适合我的家”，说明你已经开始卖价值。`;
 
@@ -403,6 +419,7 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<LibraryItem | null>(null);
   const [selectedLevel, setSelectedLevel] = useState(4);
+  const [storeAnswers, setStoreAnswers] = useState<Record<number, boolean>>({});
   const [taskDone, setTaskDone] = useState(false);
   const [toast, setToast] = useState("");
 
@@ -416,6 +433,16 @@ export default function Home() {
         .includes(normalized),
     );
   }, [query]);
+
+  const answeredStoreItems = Object.keys(storeAnswers).length;
+  const storeScore = productCheckItems.reduce((total, item, index) => {
+    const answer = storeAnswers[index];
+    if (answer === undefined) return total;
+    return total + (answer ? item.yesScore : item.noScore);
+  }, 0);
+  const storeResult = answeredStoreItems === productCheckItems.length
+    ? productCheckResults.find((result) => storeScore >= result.minScore && storeScore <= result.maxScore)
+    : null;
 
   const notify = (message: string) => {
     setToast(message);
@@ -651,18 +678,40 @@ export default function Home() {
             <p className="drawer-summary">{selected.summary}</p>
             {selected.id === "product-check" ? (
               <div className="store-checklist-preview">
-                <div className="store-checklist-tip"><strong>使用方式</strong><span>逐项勾选“是/否”，记录得分，再对照结果分层判断门店当前状态。原表没有规定每项“是/否”的计分方向，网站不替你猜测分值。</span></div>
-                {productCheckSections.map((section) => (
+                <div className="store-checklist-tip"><strong>25分制自动计算规则</strong><span>正向能力题：是=1分、否=0分；反向风险题：是=0分、否=1分。分数越高，代表门店越接近顾问式销售。</span></div>
+                <div className="store-checklist-scorebar">
+                  <div><small>阶段得分</small><strong>{answeredStoreItems ? storeScore : "—"}<em>/25</em></strong></div>
+                  <div><small>已完成</small><strong>{answeredStoreItems}<em>/{productCheckItems.length}</em></strong></div>
+                  <span>{storeResult ? `当前判断：${storeResult.title}` : `完成全部${productCheckItems.length}题后显示结果`}</span>
+                  {answeredStoreItems > 0 && <button type="button" onClick={() => setStoreAnswers({})}>清空重做</button>}
+                </div>
+                {productCheckSections.map((section, sectionIndex) => {
+                  const sectionOffset = productCheckSections.slice(0, sectionIndex).reduce((total, current) => total + current.items.length, 0);
+                  return (
                   <section className="store-checklist-section" key={section.title}>
                     <h3>{section.title}</h3>
                     <ol className="store-checklist-items">
-                      {section.items.map((item) => <li key={item}><span>{item}</span><b>是　否　得分</b></li>)}
+                      {section.items.map((item, itemIndex) => {
+                        const answerIndex = sectionOffset + itemIndex;
+                        const answer = storeAnswers[answerIndex];
+                        return (
+                          <li key={item.prompt}>
+                            <div className="store-checklist-item-copy"><span>{item.prompt}</span><small>计分：是 {item.yesScore} 分 · 否 {item.noScore} 分</small></div>
+                            <div className="store-checklist-answer">
+                              <button type="button" className={answer === true ? "selected yes" : "yes"} onClick={() => setStoreAnswers((current) => ({ ...current, [answerIndex]: true }))}>是</button>
+                              <button type="button" className={answer === false ? "selected no" : "no"} onClick={() => setStoreAnswers((current) => ({ ...current, [answerIndex]: false }))}>否</button>
+                            </div>
+                          </li>
+                        );
+                      })}
                     </ol>
                     {section.note && <p className="store-checklist-note">{section.note}</p>}
                   </section>
-                ))}
+                  );
+                })}
                 <section className="store-checklist-section">
                   <h3>六、结果判断</h3>
+                  {storeResult && <div className="store-checklist-live-result"><strong>你的结果：{storeScore}分 · {storeResult.title}</strong><p>{storeResult.next}</p></div>}
                   <div className="store-checklist-results">
                     {productCheckResults.map((result) => (
                       <article key={result.range}>
