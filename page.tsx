@@ -1181,7 +1181,6 @@ export default function Home() {
           // the private download route, so locked tools can be discovered without
           // exposing their protected content.
           items={library.filter((item) => item.kind === "工具")}
-          canAccess={(item) => !item.courseId || Boolean(authUser && courseAccessIds.includes(item.courseId))}
           onOpen={openItem}
         />
       )}
