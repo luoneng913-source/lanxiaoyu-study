@@ -1177,7 +1177,7 @@ export default function Home() {
           eyebrow="工具中心"
           title="把知识变成现场可执行动作"
           description="每个工具都写清使用场景、输入资料、执行步骤与判断结果。"
-          items={library.filter((item) => item.kind === "工具" && (!item.courseId || Boolean(authUser && courseAccessIds.includes(item.courseId))))}
+    items={library.filter((item) => item.kind === "工具")}
           onOpen={openItem}
         />
       )}
