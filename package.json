@@ -17,6 +17,8 @@
     "db:generate": "bash scripts/sites-env.sh -- drizzle-kit generate"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.110.2",
     "drizzle-orm": "0.45.2",
     "next": "16.2.6",
     "react": "19.2.6",
@@ -41,5 +43,5 @@
     "wrangler": "4.92.0"
   },
   "type": "module",
-  "displayName": "\u84dd\u7b71\u7389\u6574\u88c5\u5b66\u5802\u5b66\u4e60\u4e2d\u5fc3"
+  "displayName": "蓝筱玉整装学堂学习中心"
 }

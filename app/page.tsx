@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
+import type { User } from "@supabase/supabase-js";
+import { getSupabaseBrowserClient } from "@/app/lib/supabase-browser";
 
 type View = "home" | "courses" | "path" | "tools" | "templates";
 type LibraryItem = {
@@ -12,6 +14,7 @@ type LibraryItem = {
   accent?: "cream" | "green" | "rose";
   image?: string;
   tags: string[];
+  courseId?: string;
 };
 
 type ProductCheckItem = {
@@ -75,6 +78,7 @@ const library: LibraryItem[] = [
     accent: "cream",
     image: "/images/course-card.png",
     tags: ["需求", "诊断", "沟通", "课程"],
+    courseId: "day-1",
   },
   {
     id: "value",
@@ -84,6 +88,7 @@ const library: LibraryItem[] = [
     meta: "可直接套用 · 6项检查",
     accent: "green",
     tags: ["价值", "表达", "方案", "工具"],
+    courseId: "day-1",
   },
   {
     id: "practice",
@@ -94,6 +99,7 @@ const library: LibraryItem[] = [
     accent: "rose",
     image: "/images/practice-card.png",
     tags: ["话术", "表达", "练习", "客户嫌贵"],
+    courseId: "day-7",
   },
   {
     id: "aesthetic",
@@ -103,6 +109,7 @@ const library: LibraryItem[] = [
     meta: "9个维度 · 100分严格评分",
     accent: "green",
     tags: ["美学", "打分", "空间", "100分", "严格评分", "工具"],
+    courseId: "day-4",
   },
   {
     id: "color-strip",
@@ -112,6 +119,7 @@ const library: LibraryItem[] = [
     meta: "配色判断 · 现场辅助",
     accent: "rose",
     tags: ["PCCS", "色彩条", "配色", "工具"],
+    courseId: "day-4",
   },
   {
     id: "55387",
@@ -121,6 +129,7 @@ const library: LibraryItem[] = [
     meta: "方案前置检查",
     accent: "cream",
     tags: ["55387", "方案", "预判", "工具"],
+    courseId: "day-5",
   },
   {
     id: "store-diagnosis",
@@ -130,6 +139,7 @@ const library: LibraryItem[] = [
     meta: "助教与老板适用",
     accent: "green",
     tags: ["门店", "增长", "诊断", "工具"],
+    courseId: "day-2",
   },
   {
     id: "two-axis",
@@ -139,6 +149,7 @@ const library: LibraryItem[] = [
     meta: "8种回应方法 · 18类实战场景",
     accent: "green",
     tags: ["8大回应术", "回应术", "异议", "销讲", "实战", "工具"],
+    courseId: "day-7",
   },
   {
     id: "customer-segment",
@@ -148,6 +159,7 @@ const library: LibraryItem[] = [
     meta: "5项判断 · 25分自动分层",
     accent: "cream",
     tags: ["客户身份", "分层", "转化", "25分", "业主", "工具"],
+    courseId: "day-3",
   },
   {
     id: "product-check",
@@ -157,6 +169,7 @@ const library: LibraryItem[] = [
     meta: "5个阶段 · 25分自动分层",
     accent: "cream",
     tags: ["门店", "卖产品", "解决方案", "顾问式销售", "30分", "自检", "模板"],
+    courseId: "day-1",
   },
   {
     id: "quote-check",
@@ -166,6 +179,7 @@ const library: LibraryItem[] = [
     meta: "可复制 · SOP",
     accent: "cream",
     tags: ["报价", "成交", "检查", "模板"],
+    courseId: "day-7",
   },
   {
     id: "silent-followup",
@@ -211,6 +225,7 @@ const library: LibraryItem[] = [
     meta: "真实客户场景 · 逐题训练",
     accent: "rose",
     tags: ["异议", "训练卡", "话术", "追问", "模板"],
+    courseId: "day-7",
   },
   {
     id: "homework-review",
@@ -325,13 +340,13 @@ const pathLevels = [
 ];
 
 const courseItems = [
-  { day: "DAY 1", title: "认知重建", action: "从卖产品升级为卖整体方案", tool: "《门店是否还在卖产品自检表》", practice: "识别门店当前最大的经营卡点", pass: "能说清门店为什么必须从产品表达升级为方案价值", openId: "product-check" },
-  { day: "DAY 2", title: "定位选择", action: "判断门店适合小全案、大全案还是整装路径", tool: "定位选择相关资料待从原始课程导入", practice: "对照现状，明确门店下一阶段的主攻方向", pass: "能结合团队、客群和交付能力说明定位选择", openId: "store-diagnosis" },
-  { day: "DAY 3", title: "客户读心", action: "从客户原话识别显性需求、隐性顾虑与决策阻力", tool: "55387客户预判＋客户身份分层转化表", practice: "拿一个真实客户完成预判，并提出追问", pass: "能给出真实话术、追问问题和明确下一步", openId: "customer-segment" },
-  { day: "DAY 4", title: "美学能力", action: "把“凭感觉”升级为从色、形、质进行专业判断", tool: "美学打分表＋PCCS色彩条", practice: "找一张空间图，从色、形、质写出好看的原因", pass: "能说明空间哪里好、为什么好、如何优化", openId: "aesthetic" },
-  { day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
-  { day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "aesthetic" },
-  { day: "DAY 7", title: "成交系统", action: "把诊断、影响、优化、结果和推进变成固定动作", tool: "报价前五项检查＋8大回应术", practice: "完成一道真实客户场景表达并明确推进动作", pass: "能做到不硬推、不空讲，并推动客户进入下一步", openId: "two-axis" },
+  { id: "day-1", day: "DAY 1", title: "认知重建", action: "从卖产品升级为卖整体方案", tool: "《门店是否还在卖产品自检表》", practice: "识别门店当前最大的经营卡点", pass: "能说清门店为什么必须从产品表达升级为方案价值", openId: "product-check" },
+  { id: "day-2", day: "DAY 2", title: "定位选择", action: "判断门店适合小全案、大全案还是整装路径", tool: "定位选择相关资料待从原始课程导入", practice: "对照现状，明确门店下一阶段的主攻方向", pass: "能结合团队、客群和交付能力说明定位选择", openId: "store-diagnosis" },
+  { id: "day-3", day: "DAY 3", title: "客户读心", action: "从客户原话识别显性需求、隐性顾虑与决策阻力", tool: "55387客户预判＋客户身份分层转化表", practice: "拿一个真实客户完成预判，并提出追问", pass: "能给出真实话术、追问问题和明确下一步", openId: "customer-segment" },
+  { id: "day-4", day: "DAY 4", title: "美学能力", action: "把“凭感觉”升级为从色、形、质进行专业判断", tool: "美学打分表＋PCCS色彩条", practice: "找一张空间图，从色、形、质写出好看的原因", pass: "能说明空间哪里好、为什么好、如何优化", openId: "aesthetic" },
+  { id: "day-5", day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
+  { id: "day-6", day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "aesthetic" },
+  { id: "day-7", day: "DAY 7", title: "成交系统", action: "把诊断、影响、优化、结果和推进变成固定动作", tool: "报价前五项检查＋8大回应术", practice: "完成一道真实客户场景表达并明确推进动作", pass: "能做到不硬推、不空讲，并推动客户进入下一步", openId: "two-axis" },
 ];
 
 const productCheckSections = [
@@ -705,17 +720,70 @@ export default function Home() {
   const [responseObjection, setResponseObjection] = useState("");
   const [taskDone, setTaskDone] = useState(false);
   const [toast, setToast] = useState("");
+  const [authUser, setAuthUser] = useState<User | null>(null);
+  const [courseAccessIds, setCourseAccessIds] = useState<string[]>([]);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<"login" | "signup" | "forgot">("login");
+  const [authName, setAuthName] = useState("");
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authBusy, setAuthBusy] = useState(false);
+  const [authMessage, setAuthMessage] = useState("");
+  const supabase = useMemo(() => getSupabaseBrowserClient(), []);
+  const authConfigured = Boolean(supabase);
+
+  const loadAccess = useCallback(async () => {
+    if (!supabase) {
+      setCourseAccessIds([]);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/access", { cache: "no-store" });
+      if (!response.ok) {
+        setCourseAccessIds([]);
+        return;
+      }
+      const payload = await response.json() as { courseIds?: string[] };
+      setCourseAccessIds(payload.courseIds ?? []);
+    } catch {
+      setCourseAccessIds([]);
+    }
+  }, [supabase]);
+
+  useEffect(() => {
+    if (!supabase) return;
+    let active = true;
+
+    void supabase.auth.getUser().then(({ data }) => {
+      if (!active) return;
+      setAuthUser(data.user);
+      void loadAccess();
+    });
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setAuthUser(session?.user ?? null);
+      void loadAccess();
+    });
+
+    return () => {
+      active = false;
+      authListener.subscription.unsubscribe();
+    };
+  }, [loadAccess, supabase]);
 
   const results = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     if (!normalized) return [];
-    return library.filter((item) =>
-      [item.title, item.summary, item.kind, ...item.tags]
-        .join(" ")
-        .toLowerCase()
-        .includes(normalized),
-    );
-  }, [query]);
+    return library
+      .filter((item) => !item.courseId || Boolean(authUser && courseAccessIds.includes(item.courseId)))
+      .filter((item) =>
+        [item.title, item.summary, item.kind, ...item.tags]
+          .join(" ")
+          .toLowerCase()
+          .includes(normalized),
+      );
+  }, [authUser, courseAccessIds, query]);
 
   const answeredStoreItems = Object.keys(storeAnswers).length;
   const storeScore = productCheckItems.reduce((total, item, index) => {
@@ -762,6 +830,90 @@ export default function Home() {
     });
   };
 
+  const openAuth = (mode: "login" | "signup" | "forgot" = "login", message = "") => {
+    setAuthMode(mode);
+    setAuthMessage(message);
+    setAuthOpen(true);
+  };
+
+  const submitAuth = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!supabase) {
+      setAuthMessage("Supabase 尚未配置，请先在 Vercel 添加环境变量。");
+      return;
+    }
+
+    setAuthBusy(true);
+    setAuthMessage("");
+    try {
+      if (authMode === "forgot") {
+        const { error } = await supabase.auth.resetPasswordForEmail(authEmail, {
+          redirectTo: `${window.location.origin}/auth/reset`,
+        });
+        if (error) throw error;
+        setAuthMessage("重置密码邮件已发送，请检查邮箱。");
+      } else if (authMode === "signup") {
+        const { data, error } = await supabase.auth.signUp({
+          email: authEmail,
+          password: authPassword,
+          options: { data: { display_name: authName || "学员" } },
+        });
+        if (error) throw error;
+        if (data.session?.user) {
+          setAuthUser(data.session.user);
+          await loadAccess();
+          setAuthOpen(false);
+          notify("注册并登录成功");
+        } else {
+          setAuthMessage("注册成功，请先检查邮箱并完成验证，再登录。");
+        }
+      } else {
+        const { data, error } = await supabase.auth.signInWithPassword({ email: authEmail, password: authPassword });
+        if (error) throw error;
+        setAuthUser(data.user);
+        await loadAccess();
+        setAuthOpen(false);
+        notify("登录成功");
+      }
+    } catch (error) {
+      setAuthMessage(error instanceof Error ? error.message : "操作失败，请稍后重试。");
+    } finally {
+      setAuthBusy(false);
+    }
+  };
+
+  const signOut = async () => {
+    if (!supabase) return;
+    await supabase.auth.signOut();
+    setAuthUser(null);
+    setCourseAccessIds([]);
+    setSelected(null);
+    notify("已退出登录");
+  };
+
+  const downloadCourseFile = async (courseId: string) => {
+    if (!authUser) {
+      openAuth("login", "请先登录，再下载课程资料。");
+      return;
+    }
+    if (!courseAccessIds.includes(courseId)) {
+      notify("当前账号暂无该课程资料权限");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/download/${encodeURIComponent(courseId)}`);
+      const payload = await response.json() as { url?: string; error?: string };
+      if (!response.ok || !payload.url) {
+        notify(payload.error || "下载链接生成失败");
+        return;
+      }
+      window.location.assign(payload.url);
+    } catch {
+      notify("下载服务暂时不可用");
+    }
+  };
+
   const copyTemplate = async () => {
     try {
       if (selected?.id === "product-check") {
@@ -792,9 +944,30 @@ export default function Home() {
     }
   };
 
-  const openItem = (id: string) => {
-    const item = library.find((entry) => entry.id === id);
-    if (item) setSelected(item);
+  const openItem = (entry: string | LibraryItem) => {
+    const item = typeof entry === "string" ? library.find((candidate) => candidate.id === entry) : entry;
+    if (!item) return;
+    if (item.courseId && !authUser) {
+      openAuth("login", "请先登录，登录后系统会按课程权限显示资料。");
+      return;
+    }
+    if (item.courseId && !courseAccessIds.includes(item.courseId)) {
+      notify("当前账号暂无该课程权限");
+      return;
+    }
+    setSelected(item);
+  };
+
+  const openCourse = (course: (typeof courseItems)[number]) => {
+    if (!authUser) {
+      openAuth("login", "请先登录，登录后系统会显示你已开通的课程。");
+      return;
+    }
+    if (!courseAccessIds.includes(course.id)) {
+      notify("当前账号暂无该课程权限");
+      return;
+    }
+    openItem(course.openId);
   };
 
   return (
@@ -844,7 +1017,14 @@ export default function Home() {
               </div>
             )}
           </div>
-          <button className="avatar" aria-label="个人学习档案">罗</button>
+          {authUser ? (
+            <div className="account-menu">
+              <button className="avatar" aria-label="打开个人学习档案" onClick={() => notify(`当前账号：${authUser.email ?? "学员"}`)}>{(authUser.user_metadata?.display_name || authUser.email || "学").slice(0, 1)}</button>
+              <button className="account-action" onClick={() => void signOut()}>退出</button>
+            </div>
+          ) : (
+            <button className="account-action" onClick={() => openAuth("login")}>{authConfigured ? "登录" : "登录（待配置）"}</button>
+          )}
         </div>
       </header>
 
@@ -931,16 +1111,25 @@ export default function Home() {
               <div className="course-rule"><strong>通关规则</strong><p>看完不算完成。必须用真实客户、门店或方案完成一次应用。</p></div>
             </aside>
             <div className="course-list">
-              {courseItems.map((course) => (
-                <button key={course.day} className="course-module" onClick={() => openItem(course.openId)}>
-                  <span className="module-day">{course.day}</span>
-                  <span className="module-main"><small>课程主题</small><strong>{course.title}</strong><p>{course.action}</p></span>
-                  <span className="module-detail"><small>配套工具</small><strong>{course.tool}</strong></span>
-                  <span className="module-detail"><small>实战作业</small><strong>{course.practice}</strong></span>
-                  <span className="module-pass"><small>通关标准</small><strong>{course.pass}</strong></span>
-                  <b className="module-arrow">→</b>
-                </button>
-              ))}
+              {courseItems.map((course) => {
+                const canAccess = Boolean(authUser && courseAccessIds.includes(course.id));
+                return (
+                  <button key={course.day} className={canAccess ? "course-module" : "course-module locked"} onClick={() => openCourse(course)}>
+                    <span className="module-day">{course.day}</span>
+                    {canAccess ? (
+                      <>
+                        <span className="module-main"><small>课程主题</small><strong>{course.title}</strong><p>{course.action}</p></span>
+                        <span className="module-detail"><small>配套工具</small><strong>{course.tool}</strong></span>
+                        <span className="module-detail"><small>实战作业</small><strong>{course.practice}</strong></span>
+                        <span className="module-pass"><small>通关标准</small><strong>{course.pass}</strong></span>
+                      </>
+                    ) : (
+                      <span className="module-locked"><small>{authUser ? "课程权限" : "登录后查看"}</small><strong>{authUser ? "当前账号暂无该课程权限" : "登录后查看你已开通的课程"}</strong><p>{authUser ? "如需开通，请联系课程助教。" : "登录后系统会按账号权限显示内容。"}</p></span>
+                    )}
+                    <b className="module-arrow">→</b>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -988,8 +1177,8 @@ export default function Home() {
           eyebrow="工具中心"
           title="把知识变成现场可执行动作"
           description="每个工具都写清使用场景、输入资料、执行步骤与判断结果。"
-          items={library.filter((item) => item.kind === "工具")}
-          onOpen={setSelected}
+          items={library.filter((item) => item.kind === "工具" && (!item.courseId || Boolean(authUser && courseAccessIds.includes(item.courseId))))}
+          onOpen={openItem}
         />
       )}
 
@@ -998,9 +1187,35 @@ export default function Home() {
           eyebrow="模板库"
           title="复制的不是文字，是经过验证的推进结构"
           description="按课前诊断、客户沟通、成交跟进和课后复盘分类使用。"
-          items={library.filter((item) => item.kind === "模板" || item.kind === "练习")}
-          onOpen={setSelected}
+          items={library.filter((item) => (item.kind === "模板" || item.kind === "练习") && (!item.courseId || Boolean(authUser && courseAccessIds.includes(item.courseId))))}
+          onOpen={openItem}
         />
+      )}
+
+      {authOpen && (
+        <div className="auth-backdrop" role="presentation" onMouseDown={() => setAuthOpen(false)}>
+          <section className="auth-panel" role="dialog" aria-modal="true" aria-label="学员账户" onMouseDown={(event) => event.stopPropagation()}>
+            <button className="auth-close" type="button" aria-label="关闭登录窗口" onClick={() => setAuthOpen(false)}>×</button>
+            <span className="drawer-kind">学员账户</span>
+            <h2>{authMode === "signup" ? "注册学员账户" : authMode === "forgot" ? "找回密码" : "登录学习中心"}</h2>
+            <p className="auth-intro">登录后，系统会按你的课程权限显示学习内容和资料下载入口。</p>
+            {!authConfigured ? (
+              <div className="auth-config-warning"><strong>Supabase 尚未配置</strong><p>前端代码已经准备好，但需要在 Vercel 添加 Supabase 环境变量后，注册和登录才会生效。</p></div>
+            ) : (
+              <form className="auth-form" onSubmit={submitAuth}>
+                {authMode === "signup" && <label><span>姓名</span><input value={authName} onChange={(event) => setAuthName(event.target.value)} placeholder="选填" autoComplete="name" /></label>}
+                <label><span>邮箱</span><input required type="email" value={authEmail} onChange={(event) => setAuthEmail(event.target.value)} placeholder="请输入邮箱" autoComplete="email" /></label>
+                {authMode !== "forgot" && <label><span>密码</span><input required minLength={6} type="password" value={authPassword} onChange={(event) => setAuthPassword(event.target.value)} placeholder="至少6位" autoComplete={authMode === "signup" ? "new-password" : "current-password"} /></label>}
+                {authMessage && <p className="auth-message" role="status">{authMessage}</p>}
+                <button className="auth-submit" type="submit" disabled={authBusy}>{authBusy ? "处理中…" : authMode === "signup" ? "注册" : authMode === "forgot" ? "发送重置邮件" : "登录"}</button>
+              </form>
+            )}
+            {authConfigured && <div className="auth-switches">
+              {authMode === "login" && <><button type="button" onClick={() => { setAuthMode("forgot"); setAuthMessage(""); }}>忘记密码</button><button type="button" onClick={() => { setAuthMode("signup"); setAuthMessage(""); }}>注册新账户</button></>}
+              {authMode !== "login" && <button type="button" onClick={() => { setAuthMode("login"); setAuthMessage(""); }}>返回登录</button>}
+            </div>}
+          </section>
+        </div>
       )}
 
       {selected && (
@@ -1010,6 +1225,7 @@ export default function Home() {
             <span className="drawer-kind">{selected.kind}</span>
             <h2>{selected.title}</h2>
             <p className="drawer-summary">{selected.summary}</p>
+            {selected.courseId && <div className="drawer-download-row"><span>课程资料下载</span><button type="button" onClick={() => void downloadCourseFile(selected.courseId ?? "")}>下载私有资料</button></div>}
             {selected.id === "two-axis" ? (
               <div className="response-tool-preview">
                 <div className="store-checklist-tip"><strong>先判断，再回应</strong><span>八大回应术不是固定话术，而是根据客户原话选择回应方向。先记录客户怎么说，再选一种方法练习，避免所有异议都用同一句话回应。</span></div>
