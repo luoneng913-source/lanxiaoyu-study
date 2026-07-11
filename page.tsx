@@ -50,6 +50,8 @@ type AestheticDimension = {
   judgment: string;
 };
 
+type AuthMethod = "email" | "phone-password" | "phone-otp";
+
 type ResponseTechnique = {
   index: number;
   name: string;
@@ -347,6 +349,19 @@ const courseItems = [
   { id: "day-5", day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
   { id: "day-6", day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "aesthetic" },
   { id: "day-7", day: "DAY 7", title: "成交系统", action: "把诊断、影响、优化、结果和推进变成固定动作", tool: "报价前五项检查＋8大回应术", practice: "完成一道真实客户场景表达并明确推进动作", pass: "能做到不硬推、不空讲，并推动客户进入下一步", openId: "two-axis" },
+];
+
+const aftercareDays = [
+  { day: 1, phase: "专业知识点", title: "色彩基础知识", focus: "色环形成、四大区、PCCS色彩密码", assignment: "画色环和色调图，并解释12色环到10色环的成因、四大区和PCCS数字含义。", checkin: "录视频，一边画一边说；有条件可拿色卡讲解。" },
+  { day: 2, phase: "专业知识点", title: "色彩家族心理印象", focus: "10个色彩家族与无彩色的正反面意义", assignment: "选择一个色彩家族，讲清它的心理印象、正面意义和负面意义。", checkin: "录视频指着颜色讲解，视频较长可分段发送。" },
+  { day: 3, phase: "专业知识点", title: "12色调色彩人生", focus: "用生活图片和事件表达色调的人生阶段", assignment: "结合图片或真实事件，对每一个色调代表的人生阶段进行解说。", checkin: "参考课本第19页录视频讲解，可插入辅助图片。" },
+  { day: 4, phase: "专业知识点", title: "四大区性格特点", focus: "正反性格、生活案例与沟通方式", assignment: "从正反两个方面解释四大区性格，并举例说明如何扬长避短、有效沟通。", checkin: "参考课本第12页录视频表达。" },
+  { day: 5, phase: "专业知识点", title: "三个比例与三种法则", focus: "五感比例、色形质比例、空间色彩规划比例", assignment: "画出三个比例圆盘，并选择一个法则举例说明在工作中的应用。", checkin: "一边画比例圆盘一边讲，完成至少一个法则的案例表达。" },
+  { day: 6, phase: "专业知识点", title: "小蓝飞镖与十字坐标", focus: "色形质光、性格接待价值与消费时代坐标", assignment: "把色形质光和形容词放入十字坐标，并描述性格接待价值排序和消费时代特点。", checkin: "录视频边画边讲，也可以选择一个动物性格进行详细说明。" },
+  { day: 7, phase: "专业知识点", title: "分色与蓝氏表达法", focus: "男性色、女性色、自然色与同学色彩条表达", assignment: "为130个颜色分色，任选3位同学的色彩条做坐标表达，并用蓝氏表达法说明其喜欢的感觉。", checkin: "录视频边分色边表达；有条件可进行扔色卡。" },
+  { day: 8, phase: "综合练习", title: "美图拆解练习一", focus: "综合运用四步骤拆解一张美图", assignment: "根据助教提供的美图，完成一次完整拆解和讲解。", checkin: "录视频发送到群里，打卡后查看助教参考答案。" },
+  { day: 9, phase: "综合练习", title: "美图拆解练习二", focus: "提升观察、判断与表达的准确度", assignment: "换一张新美图，再按四步骤完成独立分析，重点说明判断依据。", checkin: "录视频发送到群里，对照参考答案修正表达。" },
+  { day: 10, phase: "综合练习", title: "美图拆解练习三", focus: "完成一次可复用的专业表达", assignment: "完成第三张美图拆解，形成自己的观察顺序、表达结构和复盘记录。", checkin: "录视频发送到群里；疑问由研发老师和助教在群内答疑。" },
 ];
 
 const productCheckSections = [
@@ -724,11 +739,18 @@ export default function Home() {
   const [courseAccessIds, setCourseAccessIds] = useState<string[]>([]);
   const [authOpen, setAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"login" | "signup" | "forgot">("login");
+  const [authMethod, setAuthMethod] = useState<AuthMethod>("email");
   const [authName, setAuthName] = useState("");
   const [authEmail, setAuthEmail] = useState("");
+  const [authPhone, setAuthPhone] = useState("");
   const [authPassword, setAuthPassword] = useState("");
+  const [authOtp, setAuthOtp] = useState("");
+  const [authOtpSent, setAuthOtpSent] = useState(false);
   const [authBusy, setAuthBusy] = useState(false);
   const [authMessage, setAuthMessage] = useState("");
+  const [aftercareOpen, setAftercareOpen] = useState(false);
+  const [aftercareDay, setAftercareDay] = useState(0);
+  const [aftercareDone, setAftercareDone] = useState<Record<number, boolean>>({});
   const supabase = useMemo(() => getSupabaseBrowserClient(), []);
   const authConfigured = Boolean(supabase);
 
@@ -810,6 +832,8 @@ export default function Home() {
     : [];
   const selectedResponseTechnique = responseTechniques[responseTechniqueIndex];
   const responseDraft = buildResponseDraft(selectedResponseTechnique, responseObjection || responseScenario);
+  const aftercareCompleted = Object.values(aftercareDone).filter(Boolean).length;
+  const selectedAftercareDay = aftercareDays[aftercareDay];
 
   const notify = (message: string) => {
     setToast(message);
@@ -830,8 +854,30 @@ export default function Home() {
     });
   };
 
+  const normalizePhone = (value: string) => {
+    const compact = value.trim().replace(/[()\s-]/g, "");
+    if (/^1\d{10}$/.test(compact)) return `+86${compact}`;
+    return compact;
+  };
+
+  const finishAuth = async (user: User | null, successMessage: string) => {
+    if (!user) {
+      setAuthMessage("验证成功，但登录会话尚未建立，请重新登录。");
+      return;
+    }
+    setAuthUser(user);
+    await loadAccess();
+    setAuthOpen(false);
+    setAuthOtpSent(false);
+    setAuthOtp("");
+    notify(successMessage);
+  };
+
   const openAuth = (mode: "login" | "signup" | "forgot" = "login", message = "") => {
     setAuthMode(mode);
+    setAuthMethod("email");
+    setAuthOtpSent(false);
+    setAuthOtp("");
     setAuthMessage(message);
     setAuthOpen(true);
   };
@@ -852,29 +898,78 @@ export default function Home() {
         });
         if (error) throw error;
         setAuthMessage("重置密码邮件已发送，请检查邮箱。");
-      } else if (authMode === "signup") {
+        return;
+      }
+
+      if (authMode === "signup" && !authName.trim()) {
+        throw new Error("请输入姓名，姓名为必填项。");
+      }
+
+      const phone = normalizePhone(authPhone);
+      const phoneRequired = authMethod === "phone-password" || authMethod === "phone-otp";
+      if (phoneRequired && !/^\+[1-9]\d{7,14}$/.test(phone)) {
+        throw new Error("请输入完整手机号，例如 +8613800138000。");
+      }
+
+      if (authMethod === "email") {
+        if (authMode === "signup") {
+          const { data, error } = await supabase.auth.signUp({
+            email: authEmail,
+            password: authPassword,
+            options: { data: { display_name: authName.trim() } },
+          });
+          if (error) throw error;
+          if (data.session?.user) {
+            await finishAuth(data.session.user, "注册并登录成功");
+          } else {
+            setAuthMessage("注册成功，请检查邮箱并完成验证，再登录。");
+          }
+        } else {
+          const { data, error } = await supabase.auth.signInWithPassword({ email: authEmail, password: authPassword });
+          if (error) throw error;
+          await finishAuth(data.user, "登录成功");
+        }
+        return;
+      }
+
+      if (authMode === "signup" && authMethod === "phone-password" && !authOtpSent) {
         const { data, error } = await supabase.auth.signUp({
-          email: authEmail,
+          phone,
           password: authPassword,
-          options: { data: { display_name: authName || "学员" } },
+          options: { channel: "sms", data: { display_name: authName.trim() } },
         });
         if (error) throw error;
         if (data.session?.user) {
-          setAuthUser(data.session.user);
-          await loadAccess();
-          setAuthOpen(false);
-          notify("注册并登录成功");
+          await finishAuth(data.session.user, "注册并登录成功");
         } else {
-          setAuthMessage("注册成功，请先检查邮箱并完成验证，再登录。");
+          setAuthOtpSent(true);
+          setAuthMessage("验证码已发送到手机号，请输入6位验证码完成注册。");
         }
-      } else {
-        const { data, error } = await supabase.auth.signInWithPassword({ email: authEmail, password: authPassword });
-        if (error) throw error;
-        setAuthUser(data.user);
-        await loadAccess();
-        setAuthOpen(false);
-        notify("登录成功");
+        return;
       }
+
+      if (authMethod === "phone-otp" && !authOtpSent) {
+        const { error } = await supabase.auth.signInWithOtp({
+          phone,
+          options: {
+            channel: "sms",
+            shouldCreateUser: authMode === "signup",
+            data: authMode === "signup" ? { display_name: authName.trim() } : undefined,
+          },
+        });
+        if (error) throw error;
+        setAuthOtpSent(true);
+        setAuthMessage("验证码已发送，请输入6位验证码。");
+        return;
+      }
+
+      const { data, error } = await supabase.auth.verifyOtp({
+        phone,
+        token: authOtp.trim(),
+        type: "sms",
+      });
+      if (error) throw error;
+      await finishAuth(data.user, authMode === "signup" ? "手机号注册成功" : "手机号登录成功");
     } catch (error) {
       setAuthMessage(error instanceof Error ? error.message : "操作失败，请稍后重试。");
     } finally {
@@ -1121,7 +1216,24 @@ export default function Home() {
                         <span className="module-main"><small>课程主题</small><strong>{course.title}</strong><p>{course.action}</p></span>
                         <span className="module-detail"><small>配套工具</small><strong>{course.tool}</strong></span>
                         <span className="module-detail"><small>实战作业</small><strong>{course.practice}</strong></span>
-                        <span className="module-pass"><small>通关标准</small><strong>{course.pass}</strong></span>
+                        <span className="module-pass">
+                          <small>{course.id === "day-1" ? "作业与通关" : "通关标准"}</small>
+                          {course.id === "day-1" ? (
+                            <>
+                              <strong>精华班课后打卡 7+3模式</strong>
+                              <span className="module-pass-extra">7天专业知识点＋3天综合练习</span>
+                              <span
+                                className="module-pass-link"
+                                role="button"
+                                tabIndex={0}
+                                onClick={(event) => { event.stopPropagation(); setAftercareOpen(true); }}
+                                onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.stopPropagation(); setAftercareOpen(true); } }}
+                              >
+                                查看打卡计划 · {aftercareCompleted}/10 →
+                              </span>
+                            </>
+                          ) : <strong>{course.pass}</strong>}
+                        </span>
                       </>
                     ) : (
                       <span className="module-locked"><small>{authUser ? "课程权限" : "登录后查看"}</small><strong>{authUser ? "当前账号暂无该课程权限" : "登录后查看你已开通的课程"}</strong><p>{authUser ? "如需开通，请联系课程助教。" : "登录后系统会按账号权限显示内容。"}</p></span>
@@ -1177,10 +1289,7 @@ export default function Home() {
           eyebrow="工具中心"
           title="把知识变成现场可执行动作"
           description="每个工具都写清使用场景、输入资料、执行步骤与判断结果。"
-          // Keep the catalogue visible. Access is still enforced by openItem and
-          // the private download route, so locked tools can be discovered without
-          // exposing their protected content.
-          items={library.filter((item) => item.kind === "工具")}
+    items={library.filter((item) => item.kind === "工具")}
           onOpen={openItem}
         />
       )}
@@ -1195,6 +1304,43 @@ export default function Home() {
         />
       )}
 
+      {aftercareOpen && (
+        <div className="aftercare-backdrop" role="presentation" onMouseDown={() => setAftercareOpen(false)}>
+          <section className="aftercare-panel" role="dialog" aria-modal="true" aria-label="精华班课后打卡7+3计划" onMouseDown={(event) => event.stopPropagation()}>
+            <button className="aftercare-close" type="button" aria-label="关闭打卡计划" onClick={() => setAftercareOpen(false)}>×</button>
+            <span className="drawer-kind">作业与通关 · 精华班</span>
+            <h2>课后打卡 7+3 模式</h2>
+            <p className="aftercare-intro">前7天巩固专业知识，后3天完成综合美图拆解。每天学习、作业、录视频、群内反馈，完成10天形成一次完整闭环。</p>
+            <div className="aftercare-progress">
+              <div><small>完成进度</small><strong>{aftercareCompleted}<em>/10天</em></strong></div>
+              <span><i style={{ width: `${aftercareCompleted * 10}%` }} /></span>
+              <b>{aftercareCompleted === 10 ? "已通关" : "进行中"}</b>
+            </div>
+            <div className="aftercare-phase-tabs">
+              <span className={selectedAftercareDay.day <= 7 ? "active" : ""}>前7天 · 专业知识点</span>
+              <span className={selectedAftercareDay.day > 7 ? "active" : ""}>后3天 · 综合练习</span>
+            </div>
+            <div className="aftercare-day-grid">
+              {aftercareDays.map((item, index) => (
+                <button type="button" key={item.day} className={index === aftercareDay ? "active" : ""} onClick={() => setAftercareDay(index)}>
+                  <b>DAY {item.day}</b><span>{item.title}</span><em>{aftercareDone[item.day] ? "已完成" : item.phase}</em>
+                </button>
+              ))}
+            </div>
+            <section className="aftercare-detail">
+              <div className="aftercare-detail-heading"><span>DAY {selectedAftercareDay.day}</span><div><small>{selectedAftercareDay.phase}</small><h3>{selectedAftercareDay.title}</h3></div></div>
+              <div className="aftercare-detail-block"><small>训练重点</small><p>{selectedAftercareDay.focus}</p></div>
+              <div className="aftercare-detail-block"><small>作业内容</small><p>{selectedAftercareDay.assignment}</p></div>
+              <div className="aftercare-detail-block aftercare-checkin"><small>打卡要求</small><p>{selectedAftercareDay.checkin}</p></div>
+              <button type="button" className={aftercareDone[selectedAftercareDay.day] ? "aftercare-done complete" : "aftercare-done"} onClick={() => setAftercareDone((current) => ({ ...current, [selectedAftercareDay.day]: !current[selectedAftercareDay.day] }))}>
+                {aftercareDone[selectedAftercareDay.day] ? "已完成本日打卡 · 点击撤销" : "标记本日已完成"}<span>✓</span>
+              </button>
+            </section>
+            <p className="aftercare-note">综合练习第8—10天：助教每天发一张美图，学员按照美图拆解四步骤录视频讲解；打卡后由助教发送参考答案，群内统一答疑。</p>
+          </section>
+        </div>
+      )}
+
       {authOpen && (
         <div className="auth-backdrop" role="presentation" onMouseDown={() => setAuthOpen(false)}>
           <section className="auth-panel" role="dialog" aria-modal="true" aria-label="学员账户" onMouseDown={(event) => event.stopPropagation()}>
@@ -1205,17 +1351,31 @@ export default function Home() {
             {!authConfigured ? (
               <div className="auth-config-warning"><strong>Supabase 尚未配置</strong><p>前端代码已经准备好，但需要在 Vercel 添加 Supabase 环境变量后，注册和登录才会生效。</p></div>
             ) : (
+              <>
+              {authMode !== "forgot" && (
+                <div className="auth-method-switches" role="tablist" aria-label="注册或登录方式">
+                  <button type="button" className={authMethod === "email" ? "active" : ""} onClick={() => { setAuthMethod("email"); setAuthOtpSent(false); setAuthOtp(""); }}>邮箱密码</button>
+                  <button type="button" className={authMethod === "phone-password" ? "active" : ""} onClick={() => { setAuthMethod("phone-password"); setAuthOtpSent(false); setAuthOtp(""); }}>手机号＋密码</button>
+                  <button type="button" className={authMethod === "phone-otp" ? "active" : ""} onClick={() => { setAuthMethod("phone-otp"); setAuthOtpSent(false); setAuthOtp(""); }}>手机号验证码</button>
+                </div>
+              )}
               <form className="auth-form" onSubmit={submitAuth}>
-                {authMode === "signup" && <label><span>姓名</span><input value={authName} onChange={(event) => setAuthName(event.target.value)} placeholder="选填" autoComplete="name" /></label>}
-                <label><span>邮箱</span><input required type="email" value={authEmail} onChange={(event) => setAuthEmail(event.target.value)} placeholder="请输入邮箱" autoComplete="email" /></label>
-                {authMode !== "forgot" && <label><span>密码</span><input required minLength={6} type="password" value={authPassword} onChange={(event) => setAuthPassword(event.target.value)} placeholder="至少6位" autoComplete={authMode === "signup" ? "new-password" : "current-password"} /></label>}
+                {authMode === "signup" && <label><span>姓名（必填）</span><input required value={authName} onChange={(event) => setAuthName(event.target.value)} placeholder="请输入姓名" autoComplete="name" /></label>}
+                {(authMethod === "email" || authMode === "forgot") && <label><span>邮箱</span><input required type="email" value={authEmail} onChange={(event) => setAuthEmail(event.target.value)} placeholder="请输入邮箱" autoComplete="email" /></label>}
+                {authMode !== "forgot" && authMethod !== "email" && <label><span>手机号</span><input required type="tel" value={authPhone} onChange={(event) => setAuthPhone(event.target.value)} placeholder="例如 +8613800138000" autoComplete="tel" /></label>}
+                {authMode !== "forgot" && (authMethod === "email" || authMethod === "phone-password") && <label><span>密码</span><input required minLength={6} type="password" value={authPassword} onChange={(event) => setAuthPassword(event.target.value)} placeholder="至少6位" autoComplete={authMode === "signup" ? "new-password" : "current-password"} /></label>}
+                {authOtpSent && authMethod !== "email" && <label><span>短信验证码</span><input required inputMode="numeric" pattern="\d{6}" maxLength={6} value={authOtp} onChange={(event) => setAuthOtp(event.target.value.replace(/\D/g, "").slice(0, 6))} placeholder="请输入6位验证码" autoComplete="one-time-code" /></label>}
+                {authOtpSent && authMethod !== "email" && <p className="auth-otp-hint">验证码通常有效1小时；如未收到，请确认手机号包含国家区号。</p>}
                 {authMessage && <p className="auth-message" role="status">{authMessage}</p>}
-                <button className="auth-submit" type="submit" disabled={authBusy}>{authBusy ? "处理中…" : authMode === "signup" ? "注册" : authMode === "forgot" ? "发送重置邮件" : "登录"}</button>
+                <button className="auth-submit" type="submit" disabled={authBusy}>
+                  {authBusy ? "处理中…" : authMode === "forgot" ? "发送重置邮件" : authOtpSent && authMethod !== "email" ? "验证并完成" : authMethod === "phone-otp" ? "发送验证码" : authMode === "signup" ? authMethod === "phone-password" ? "注册并发送验证码" : "注册" : "登录"}
+                </button>
               </form>
+              </>
             )}
             {authConfigured && <div className="auth-switches">
-              {authMode === "login" && <><button type="button" onClick={() => { setAuthMode("forgot"); setAuthMessage(""); }}>忘记密码</button><button type="button" onClick={() => { setAuthMode("signup"); setAuthMessage(""); }}>注册新账户</button></>}
-              {authMode !== "login" && <button type="button" onClick={() => { setAuthMode("login"); setAuthMessage(""); }}>返回登录</button>}
+              {authMode === "login" && <><button type="button" onClick={() => { setAuthMode("forgot"); setAuthMethod("email"); setAuthOtpSent(false); setAuthMessage(""); }}>忘记密码</button><button type="button" onClick={() => { setAuthMode("signup"); setAuthMethod("email"); setAuthOtpSent(false); setAuthMessage(""); }}>注册新账户</button></>}
+              {authMode !== "login" && <button type="button" onClick={() => { setAuthMode("login"); setAuthMethod("email"); setAuthOtpSent(false); setAuthMessage(""); }}>返回登录</button>}
             </div>}
           </section>
         </div>
@@ -1438,27 +1598,19 @@ function PageIntro({ eyebrow, title, description }: { eyebrow: string; title: st
   return <section className="page-intro"><span>{eyebrow}</span><h1>{title}</h1><p>{description}</p></section>;
 }
 
-function LibraryView({ eyebrow, title, description, items, onOpen, canAccess }: { eyebrow: string; title: string; description: string; items: LibraryItem[]; onOpen: (item: LibraryItem) => void; canAccess?: (item: LibraryItem) => boolean }) {
+function LibraryView({ eyebrow, title, description, items, onOpen }: { eyebrow: string; title: string; description: string; items: LibraryItem[]; onOpen: (item: LibraryItem) => void }) {
   return (
     <div className="page content-page">
       <PageIntro eyebrow={eyebrow} title={title} description={description} />
-      {items.length ? (
-        <div className="library-grid">
-          {items.map((item, index) => {
-            const locked = Boolean(canAccess && !canAccess(item));
-            return (
-              <button key={item.id} className={locked ? "library-card locked" : "library-card"} onClick={() => onOpen(item)}>
-                <span className="library-index">{String(index + 1).padStart(2, "0")}</span>
-                <span className={`library-icon ${item.accent ?? "cream"}`}>{item.kind === "模板" ? "◇" : item.kind === "练习" ? "✦" : "▦"}</span>
-                {locked && <span className="library-lock">需开通权限</span>}
-                <small>{item.kind}</small><strong>{item.title}</strong><p>{item.summary}</p><em>{item.meta}</em><b>→</b>
-              </button>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="library-empty">暂时没有可显示的内容，请联系课程助教开通对应权限。</div>
-      )}
+      <div className="library-grid">
+        {items.map((item, index) => (
+          <button key={item.id} className="library-card" onClick={() => onOpen(item)}>
+            <span className="library-index">{String(index + 1).padStart(2, "0")}</span>
+            <span className={`library-icon ${item.accent ?? "cream"}`}>{item.kind === "模板" ? "◇" : item.kind === "练习" ? "✦" : "▦"}</span>
+            <small>{item.kind}</small><strong>{item.title}</strong><p>{item.summary}</p><em>{item.meta}</em><b>→</b>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
