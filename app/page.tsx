@@ -20,6 +20,33 @@ type ProductCheckItem = {
   noScore: number;
 };
 
+type CustomerIdentityOption = {
+  score: 1 | 3 | 5;
+  label: string;
+};
+
+type CustomerIdentityDimension = {
+  name: string;
+  options: CustomerIdentityOption[];
+};
+
+type CustomerIdentityTier = {
+  minScore: number;
+  maxScore: number;
+  code: "S" | "A" | "B" | "C" | "D";
+  title: string;
+  focus: string;
+  action: string;
+  caution: string;
+};
+
+type AestheticDimension = {
+  name: string;
+  weight: number;
+  core: string;
+  judgment: string;
+};
+
 const navigation: { id: View; label: string }[] = [
   { id: "home", label: "学习首页" },
   { id: "courses", label: "课程资料" },
@@ -62,10 +89,10 @@ const library: LibraryItem[] = [
     id: "aesthetic",
     kind: "工具",
     title: "蓝筱玉美学体系打分表",
-    summary: "从主题、色彩、比例、层次、纵深和平衡逐项判断空间。",
-    meta: "8个维度 · 严格评分",
+    summary: "按主题、色彩、比例、层次、纵深、平衡、质感、呼应和记忆点，严格客观完成100分评估。",
+    meta: "9个维度 · 100分严格评分",
     accent: "green",
-    tags: ["美学", "打分", "空间", "工具"],
+    tags: ["美学", "打分", "空间", "100分", "严格评分", "工具"],
   },
   {
     id: "color-strip",
@@ -107,17 +134,17 @@ const library: LibraryItem[] = [
     id: "customer-segment",
     kind: "工具",
     title: "客户身份分层转化表",
-    summary: "按老板、老板娘、设计师和导购区分痛点、动机、抗拒点与案例入口。",
-    meta: "身份判断 · 私聊入口",
+    summary: "从项目真实性、决策权、装修时间、预算清晰度和行动意愿，判断客户身份与下一步转化动作。",
+    meta: "5项判断 · 25分自动分层",
     accent: "cream",
-    tags: ["客户身份", "分层", "转化", "工具"],
+    tags: ["客户身份", "分层", "转化", "25分", "业主", "工具"],
   },
   {
     id: "product-check",
     kind: "模板",
     title: "门店是否还在卖产品自检表",
     summary: "从进店、沟通、方案、成交和团队五个阶段，判断门店是在卖产品，还是在卖解决方案。",
-    meta: "5个阶段 · 30分结果分层",
+    meta: "5个阶段 · 25分自动分层",
     accent: "cream",
     tags: ["门店", "卖产品", "解决方案", "顾问式销售", "30分", "自检", "模板"],
   },
@@ -290,10 +317,10 @@ const pathLevels = [
 const courseItems = [
   { day: "DAY 1", title: "认知重建", action: "从卖产品升级为卖整体方案", tool: "《门店是否还在卖产品自检表》", practice: "识别门店当前最大的经营卡点", pass: "能说清门店为什么必须从产品表达升级为方案价值", openId: "product-check" },
   { day: "DAY 2", title: "定位选择", action: "判断门店适合小全案、大全案还是整装路径", tool: "定位选择相关资料待从原始课程导入", practice: "对照现状，明确门店下一阶段的主攻方向", pass: "能结合团队、客群和交付能力说明定位选择", openId: "store-diagnosis" },
-  { day: "DAY 3", title: "客户读心", action: "从客户原话识别显性需求、隐性顾虑与决策阻力", tool: "55387客户预判＋客户身份分层转化表", practice: "拿一个真实客户完成预判，并提出追问", pass: "能给出真实话术、追问问题和明确下一步", openId: "55387" },
+  { day: "DAY 3", title: "客户读心", action: "从客户原话识别显性需求、隐性顾虑与决策阻力", tool: "55387客户预判＋客户身份分层转化表", practice: "拿一个真实客户完成预判，并提出追问", pass: "能给出真实话术、追问问题和明确下一步", openId: "customer-segment" },
   { day: "DAY 4", title: "美学能力", action: "把“凭感觉”升级为从色、形、质进行专业判断", tool: "美学打分表＋PCCS色彩条", practice: "找一张空间图，从色、形、质写出好看的原因", pass: "能说明空间哪里好、为什么好、如何优化", openId: "aesthetic" },
   { day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
-  { day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "color-strip" },
+  { day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "aesthetic" },
   { day: "DAY 7", title: "成交系统", action: "把诊断、影响、优化、结果和推进变成固定动作", tool: "报价前五项检查＋十大异议处理训练卡", practice: "完成一道真实客户场景表达并明确推进动作", pass: "能做到不硬推、不空讲，并推动客户进入下一步", openId: "objection-cards" },
 ];
 
@@ -412,6 +439,118 @@ ${productCheckSections[4].items.map((item, index) => `${index + 1}. ${item.promp
 
 最终判断：如果客户离开门店后只记住“你家某某产品多少钱”，说明你还在卖产品；如果客户记住“这家店懂我的需求，能帮我打造适合我的家”，说明你已经开始卖价值。`;
 
+const customerIdentityDimensions: CustomerIdentityDimension[] = [
+  {
+    name: "项目真实性",
+    options: [
+      { score: 1, label: "没有具体房子，只是随便看看" },
+      { score: 3, label: "已经买房，但小区、面积或户型信息不完整" },
+      { score: 5, label: "房屋、小区、面积、户型等信息明确" },
+    ],
+  },
+  {
+    name: "决策权",
+    options: [
+      { score: 1, label: "只是代看、代问或帮忙询价" },
+      { score: 3, label: "能参与意见，但不能最终决定" },
+      { score: 5, label: "本人是主要决策人或主要出资人" },
+    ],
+  },
+  {
+    name: "装修时间",
+    options: [
+      { score: 1, label: "一年以上，没有明确装修时间" },
+      { score: 3, label: "计划在3—12个月内装修" },
+      { score: 5, label: "3个月内启动，或已经进入装修阶段" },
+    ],
+  },
+  {
+    name: "预算清晰度",
+    options: [
+      { score: 1, label: "不愿谈预算，只问最低价格" },
+      { score: 3, label: "有大致预算范围" },
+      { score: 5, label: "预算明确，并关注如何合理分配" },
+    ],
+  },
+  {
+    name: "行动意愿",
+    options: [
+      { score: 1, label: "只拿资料，不愿进一步沟通" },
+      { score: 3, label: "愿意持续了解、比较和沟通" },
+      { score: 5, label: "愿意到店、量房、带家人沟通或确认方案" },
+    ],
+  },
+];
+
+const customerIdentityTiers: CustomerIdentityTier[] = [
+  {
+    minScore: 22,
+    maxScore: 25,
+    code: "S",
+    title: "核心决策业主",
+    focus: "尽快推进具体行动",
+    action: "24小时内推动到店、量房、方案沟通或收定。",
+    caution: "不要只讲产品、反复报价，要深挖家庭需求、预算、决策标准和时间节点。",
+  },
+  {
+    minScore: 18,
+    maxScore: 21,
+    code: "A",
+    title: "共同决策业主",
+    focus: "补齐决策人、预算或时间信息",
+    action: "邀请关键决策人共同沟通，确认下一步时间。",
+    caution: "不要只服务眼前这一个人，要尽快连接背后的关键家庭成员。",
+  },
+  {
+    minScore: 13,
+    maxScore: 17,
+    code: "B",
+    title: "信息收集业主",
+    focus: "建立选择标准和专业信赖",
+    action: "用案例、诊断和专业建议替代直接报价，帮助客户明确判断标准。",
+    caution: "不要大量发图片、发报价单，把客户推入单纯比价。",
+  },
+  {
+    minScore: 8,
+    maxScore: 12,
+    code: "C",
+    title: "潜在业主",
+    focus: "按装修节点持续培育",
+    action: "记录交房时间和关注重点，分阶段发送有价值的内容。",
+    caution: "不要高频催单，要根据项目节点安排跟进节奏。",
+  },
+  {
+    minScore: 5,
+    maxScore: 7,
+    code: "D",
+    title: "非直接业主",
+    focus: "判断真实价值",
+    action: "确认背后是否存在真实业主；有合作或转介绍价值则保留，否则降低优先级。",
+    caution: "不要把所有咨询者都当成直接成交客户，先确认身份、目的和决策关系。",
+  },
+];
+
+const customerIdentityQuestions = [
+  ["判断真实居住人", "这套房子是您自己住，还是帮家里人提前了解？"],
+  ["判断项目进度", "房子现在是在等交房、做设计，还是已经开始施工了？"],
+  ["判断主要决策人", "家里装修这件事，目前主要由谁来做决定？"],
+  ["判断共同决策关系", "除了您之外，还有哪位家人需要一起确认方案？"],
+  ["判断装修时间", "大概计划什么时候开始选产品或者正式装修？"],
+  ["判断核心关注点", "您目前更关注整体效果、预算控制、环保、收纳，还是后期落地省心？"],
+] as const;
+
+const aestheticDimensions: AestheticDimension[] = [
+  { name: "主题统一", weight: 15, core: "空间是否有明确主题和统一气质", judgment: "一眼能看出是优雅、温馨、高级、自然、时尚，家具、墙面、灯具、窗帘、软装像一套方案" },
+  { name: "色彩比例", weight: 20, core: "基础色70%、主题色25%、点缀色5%是否合理", judgment: "大面积颜色稳定舒服，主题色有记忆点，点缀色少而精，不花乱、不廉价" },
+  { name: "空间比例", weight: 15, core: "家具尺度、留白、动线是否舒服", judgment: "沙发、床、茶几、地毯、装饰画、灯具大小合适，空间不挤、不空、不压抑" },
+  { name: "上中下层次", weight: 12, core: "顶面、墙面、地面是否完整协调", judgment: "吊顶有精致感，墙面有气质，地面能托住空间，不头重脚轻" },
+  { name: "前中后纵深", weight: 12, core: "空间是否有画面层次和景深", judgment: "前景有精致物，中景有生活主体，背景有完整设计，画面不扁平" },
+  { name: "左中右平衡", weight: 10, core: "左右视觉重量是否平衡", judgment: "不一定完全对称，但两边高度、颜色、体量、装饰感受舒服，不偏、不歪、不失重" },
+  { name: "材质与质感", weight: 8, core: "材质是否真实、高级、有层次", judgment: "木、布、皮、石、金属、玻璃之间有对比，哑光、柔光、细腻感协调" },
+  { name: "细节呼应", weight: 5, core: "色彩、线条、材质、造型是否有连接", judgment: "灯具、画框、五金、抱枕、花艺、地毯之间有呼应，不是孤立存在" },
+  { name: "记忆点", weight: 3, core: "空间是否有一个让人记住的亮点", judgment: "有一个主角：背景墙、沙发、床头、吊灯、装饰画、窗帘或色彩组合" },
+];
+
 const templateText = `姐，我注意到你现在真正卡住的，不是没有学过方法，而是还没有把方法练成客户听得懂的表达。\n\n我们先不急着谈课程。你把最近一次最难推进的客户情况发给我，我先帮你判断：问题出在需求没问透、价值没讲清，还是下一步没有推动。`;
 
 export default function Home() {
@@ -420,6 +559,15 @@ export default function Home() {
   const [selected, setSelected] = useState<LibraryItem | null>(null);
   const [selectedLevel, setSelectedLevel] = useState(4);
   const [storeAnswers, setStoreAnswers] = useState<Record<number, boolean>>({});
+  const [customerAnswers, setCustomerAnswers] = useState<Record<number, 1 | 3 | 5>>({});
+  const [customerName, setCustomerName] = useState("");
+  const [customerContact, setCustomerContact] = useState("");
+  const [customerCoreConcern, setCustomerCoreConcern] = useState("");
+  const [aestheticScores, setAestheticScores] = useState<Record<number, number>>({});
+  const [aestheticNotes, setAestheticNotes] = useState<Record<number, string>>({});
+  const [aestheticSuggestions, setAestheticSuggestions] = useState<Record<number, string>>({});
+  const [aestheticProject, setAestheticProject] = useState("");
+  const [aestheticEvaluator, setAestheticEvaluator] = useState("");
   const [taskDone, setTaskDone] = useState(false);
   const [toast, setToast] = useState("");
 
@@ -443,16 +591,60 @@ export default function Home() {
   const storeResult = answeredStoreItems === productCheckItems.length
     ? productCheckResults.find((result) => storeScore >= result.minScore && storeScore <= result.maxScore)
     : null;
+  const answeredCustomerItems = Object.keys(customerAnswers).length;
+  const customerScore = customerIdentityDimensions.reduce((total, _dimension, index) => total + (customerAnswers[index] ?? 0), 0);
+  const customerResult = answeredCustomerItems === customerIdentityDimensions.length
+    ? customerIdentityTiers.find((tier) => customerScore >= tier.minScore && customerScore <= tier.maxScore)
+    : null;
+  const answeredAestheticItems = Object.keys(aestheticScores).length;
+  const aestheticScore = aestheticDimensions.reduce((total, dimension, index) => total + Math.min(dimension.weight, Math.max(0, aestheticScores[index] ?? 0)), 0);
+  const aestheticWeakest = answeredAestheticItems === aestheticDimensions.length
+    ? [...aestheticDimensions].sort((left, right) => {
+      const leftIndex = aestheticDimensions.indexOf(left);
+      const rightIndex = aestheticDimensions.indexOf(right);
+      return ((aestheticScores[leftIndex] ?? 0) / left.weight) - ((aestheticScores[rightIndex] ?? 0) / right.weight);
+    }).slice(0, 3)
+    : [];
 
   const notify = (message: string) => {
     setToast(message);
     window.setTimeout(() => setToast(""), 2200);
   };
 
+  const updateAestheticScore = (index: number, rawValue: string) => {
+    setAestheticScores((current) => {
+      const next = { ...current };
+      if (rawValue === "") {
+        delete next[index];
+        return next;
+      }
+      const value = Number(rawValue);
+      if (!Number.isFinite(value)) return next;
+      next[index] = Math.min(aestheticDimensions[index].weight, Math.max(0, Math.round(value)));
+      return next;
+    });
+  };
+
   const copyTemplate = async () => {
     try {
-      await navigator.clipboard.writeText(selected?.id === "product-check" ? productCheckText : templateText);
-      notify(selected?.id === "product-check" ? "自检表文字已复制" : "模板已复制，可直接修改使用");
+      if (selected?.id === "product-check") {
+        await navigator.clipboard.writeText(productCheckText);
+        notify("自检表文字已复制");
+      } else if (selected?.id === "customer-segment") {
+        const resultText = customerResult
+          ? `门店客户身份分层诊断\n客户：${customerName || "未填写"}\n联系方式：${customerContact || "未填写"}\n核心关注：${customerCoreConcern || "未填写"}\n\n总分：${customerScore}/25\n客户层级：${customerResult.code}级·${customerResult.title}\n跟进重点：${customerResult.focus}\n建议动作：${customerResult.action}\n注意：${customerResult.caution}`
+          : `门店客户身份分层判断\n已完成：${answeredCustomerItems}/5项\n当前分数：${customerScore}/25\n请完成五项判断后，再确定客户层级和下一步动作。`;
+        await navigator.clipboard.writeText(resultText);
+        notify(customerResult ? "诊断结果已复制" : "当前诊断进度已复制");
+      } else if (selected?.id === "aesthetic") {
+        const scoreLines = aestheticDimensions.map((dimension, index) => `${index + 1}. ${dimension.name}：${aestheticScores[index] ?? "未评分"}/${dimension.weight}分\n问题记录：${aestheticNotes[index] || "未填写"}\n优化建议：${aestheticSuggestions[index] || "未填写"}`).join("\n\n");
+        const resultText = `蓝筱玉美学体系打分表\n项目：${aestheticProject || "未填写"}\n评估人：${aestheticEvaluator || "未填写"}\n\n总分：${aestheticScore}/100\n已完成：${answeredAestheticItems}/${aestheticDimensions.length}项\n\n${scoreLines}${aestheticWeakest.length ? `\n\n优先优化：${aestheticWeakest.map((dimension) => dimension.name).join("、")}` : ""}`;
+        await navigator.clipboard.writeText(resultText);
+        notify("美学评分结果已复制");
+      } else {
+        await navigator.clipboard.writeText(templateText);
+        notify("模板已复制，可直接修改使用");
+      }
     } catch {
       notify("复制未成功，请在预览中手动选择文字");
     }
@@ -676,7 +868,99 @@ export default function Home() {
             <span className="drawer-kind">{selected.kind}</span>
             <h2>{selected.title}</h2>
             <p className="drawer-summary">{selected.summary}</p>
-            {selected.id === "product-check" ? (
+            {selected.id === "aesthetic" ? (
+              <div className="aesthetic-score-preview">
+                <div className="store-checklist-tip"><strong>严格、客观、实事求是</strong><span>按图片中的核心标准和可感知判断打分。每项得分范围为0分至该维度权重，建议使用整数；满分100分。不要夸大，不硬夸，问题记录和优化建议必须对应现场事实。</span></div>
+                <div className="aesthetic-score-fields">
+                  <label><span>项目名称</span><input value={aestheticProject} onChange={(event) => setAestheticProject(event.target.value)} placeholder="选填" /></label>
+                  <label><span>评估人</span><input value={aestheticEvaluator} onChange={(event) => setAestheticEvaluator(event.target.value)} placeholder="选填" /></label>
+                </div>
+                <div className="aesthetic-scorebar">
+                  <div><small>当前总分</small><strong>{aestheticScore}<em>/100</em></strong></div>
+                  <div><small>已完成</small><strong>{answeredAestheticItems}<em>/{aestheticDimensions.length}</em></strong></div>
+                  <span>{answeredAestheticItems === aestheticDimensions.length ? `优先优化：${aestheticWeakest.map((dimension) => dimension.name).join("、")}` : `完成${aestheticDimensions.length}项后生成完整评分结果`}</span>
+                  {answeredAestheticItems > 0 && <button type="button" onClick={() => { setAestheticScores({}); setAestheticNotes({}); setAestheticSuggestions({}); setAestheticProject(""); setAestheticEvaluator(""); }}>清空重做</button>}
+                </div>
+                {aestheticDimensions.map((dimension, dimensionIndex) => {
+                  const score = aestheticScores[dimensionIndex];
+                  return (
+                    <section className="aesthetic-dimension" key={dimension.name}>
+                      <div className="aesthetic-dimension-heading"><h3><span>0{dimensionIndex + 1}</span>{dimension.name}</h3><strong>{score ?? "—"}<em>/{dimension.weight}分</em></strong></div>
+                      <div className="aesthetic-standard-grid">
+                        <article><small>核心标准</small><p>{dimension.core}</p></article>
+                        <article><small>可感知判断</small><p>{dimension.judgment}</p></article>
+                      </div>
+                      <div className="aesthetic-score-input">
+                        <label><span>本项得分</span><input type="number" min="0" max={dimension.weight} step="1" value={score ?? ""} onChange={(event) => updateAestheticScore(dimensionIndex, event.target.value)} /><em>/ {dimension.weight}分</em></label>
+                        <input aria-label={`${dimension.name}评分滑块`} type="range" min="0" max={dimension.weight} step="1" value={score ?? 0} onChange={(event) => updateAestheticScore(dimensionIndex, event.target.value)} />
+                      </div>
+                      <div className="aesthetic-notes-grid">
+                        <label><span>问题记录</span><textarea value={aestheticNotes[dimensionIndex] ?? ""} onChange={(event) => setAestheticNotes((current) => ({ ...current, [dimensionIndex]: event.target.value }))} placeholder="写具体问题，不写空泛评价" /></label>
+                        <label><span>优化建议</span><textarea value={aestheticSuggestions[dimensionIndex] ?? ""} onChange={(event) => setAestheticSuggestions((current) => ({ ...current, [dimensionIndex]: event.target.value }))} placeholder="写下一步可执行调整" /></label>
+                      </div>
+                    </section>
+                  );
+                })}
+                <section className="aesthetic-result-card">
+                  <h3>评分结果</h3>
+                  <div className="aesthetic-result-summary"><strong>{aestheticScore}<em>/100</em></strong><span>{answeredAestheticItems === aestheticDimensions.length ? "已完成全部9项，可复制完整评分记录" : `还需完成${aestheticDimensions.length - answeredAestheticItems}项`}</span></div>
+                  {aestheticWeakest.length > 0 && <p>优先回看：{aestheticWeakest.map((dimension) => dimension.name).join("、")}。先处理影响整体观感最大的短板，再做细节微调。</p>}
+                </section>
+              </div>
+            ) : selected.id === "customer-segment" ? (
+              <div className="customer-segment-preview">
+                <div className="store-checklist-tip"><strong>25分身份判断规则</strong><span>围绕项目真实性、决策权、装修时间、预算清晰度和行动意愿五项判断。每项选择1分、3分或5分，满分25分。分数用于确定下一步动作，不替代真实沟通。</span></div>
+                <div className="customer-segment-fields">
+                  <label><span>客户姓名</span><input value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="选填" /></label>
+                  <label><span>联系方式</span><input value={customerContact} onChange={(event) => setCustomerContact(event.target.value)} placeholder="选填" /></label>
+                  <label className="wide"><span>当前核心关注</span><input value={customerCoreConcern} onChange={(event) => setCustomerCoreConcern(event.target.value)} placeholder="例如：预算、效果、环保、收纳、落地" /></label>
+                </div>
+                <div className="customer-segment-scorebar">
+                  <div><small>当前得分</small><strong>{customerScore}<em>/25</em></strong></div>
+                  <div><small>已完成</small><strong>{answeredCustomerItems}<em>/{customerIdentityDimensions.length}</em></strong></div>
+                  <span>{customerResult ? `${customerResult.code}级 · ${customerResult.title}` : `完成${customerIdentityDimensions.length}项后显示客户层级`}</span>
+                  {answeredCustomerItems > 0 && <button type="button" onClick={() => { setCustomerAnswers({}); setCustomerName(""); setCustomerContact(""); setCustomerCoreConcern(""); }}>清空重做</button>}
+                </div>
+                {customerIdentityDimensions.map((dimension, dimensionIndex) => (
+                  <section className="customer-segment-section" key={dimension.name}>
+                    <h3><span>0{dimensionIndex + 1}</span>{dimension.name}</h3>
+                    <div className="customer-segment-options">
+                      {dimension.options.map((option) => (
+                        <button
+                          type="button"
+                          key={option.score}
+                          className={customerAnswers[dimensionIndex] === option.score ? "selected" : ""}
+                          onClick={() => setCustomerAnswers((current) => ({ ...current, [dimensionIndex]: option.score }))}
+                        >
+                          <b>{option.score}分</b><span>{option.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </section>
+                ))}
+                <section className="customer-segment-result">
+                  <h3>结果与下一步</h3>
+                  {customerResult ? (
+                    <div className="customer-segment-live-result">
+                      <div className="customer-segment-result-title"><strong>{customerResult.code}级 · {customerResult.title}</strong><b>{customerScore}分</b></div>
+                      <p><em>跟进重点：</em>{customerResult.focus}</p>
+                      <p><em>建议动作：</em>{customerResult.action}</p>
+                      <p><em>注意：</em>{customerResult.caution}</p>
+                    </div>
+                  ) : (
+                    <p className="customer-segment-pending">请完成五项判断，系统会自动给出 S/A/B/C/D 层级与下一步动作。</p>
+                  )}
+                  <div className="customer-segment-tier-list">
+                    {customerIdentityTiers.map((tier) => <article key={tier.code} className={customerResult?.code === tier.code ? "active" : ""}><strong>{tier.code}级 · {tier.title}</strong><span>{tier.minScore}—{tier.maxScore}分</span><p>{tier.focus}</p></article>)}
+                  </div>
+                </section>
+                <section className="customer-segment-section">
+                  <h3>自然穿插的六个判断问题</h3>
+                  <div className="customer-segment-question-list">{customerIdentityQuestions.map(([label, question]) => <div key={label}><small>{label}</small><p>{question}</p></div>)}</div>
+                  <p className="store-checklist-note">不要像填写调查表一样一次问完，要自然穿插在聊天、看样和需求沟通过程中。</p>
+                </section>
+              </div>
+            ) : selected.id === "product-check" ? (
               <div className="store-checklist-preview">
                 <div className="store-checklist-tip"><strong>25分制自动计算规则</strong><span>正向能力题：是=1分、否=0分；反向风险题：是=0分、否=1分。分数越高，代表门店越接近顾问式销售。</span></div>
                 <div className="store-checklist-scorebar">
@@ -737,8 +1021,8 @@ export default function Home() {
             ) : (
               <ol className="lesson-steps"><li>先看案例，判断问题</li><li>使用配套工具拆解</li><li>完成一次真实练习</li></ol>
             )}
-            <button className="drawer-cta" onClick={selected.kind === "模板" || selected.kind === "练习" ? copyTemplate : () => notify("已加入你的继续学习列表")}>
-              {selected.id === "product-check" ? "复制自检表文字" : selected.kind === "模板" || selected.kind === "练习" ? "复制并使用" : "开始学习"} <span>→</span>
+            <button className="drawer-cta" onClick={selected.id === "product-check" || selected.id === "customer-segment" || selected.id === "aesthetic" || selected.kind === "模板" || selected.kind === "练习" ? copyTemplate : () => notify("已加入你的继续学习列表")}>
+              {selected.id === "product-check" ? "复制自检表文字" : selected.id === "customer-segment" ? "复制诊断结果" : selected.id === "aesthetic" ? "复制评分结果" : selected.kind === "模板" || selected.kind === "练习" ? "复制并使用" : "开始学习"} <span>→</span>
             </button>
           </aside>
         </div>
