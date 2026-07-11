@@ -80,7 +80,7 @@ const library: LibraryItem[] = [
     accent: "cream",
     image: "/images/course-card.png",
     tags: ["需求", "诊断", "沟通", "课程"],
-    courseId: "day-1",
+    courseId: "growth-day-1",
   },
   {
     id: "value",
@@ -90,7 +90,7 @@ const library: LibraryItem[] = [
     meta: "可直接套用 · 6项检查",
     accent: "green",
     tags: ["价值", "表达", "方案", "工具"],
-    courseId: "day-1",
+    courseId: "growth-day-1",
   },
   {
     id: "practice",
@@ -101,7 +101,7 @@ const library: LibraryItem[] = [
     accent: "rose",
     image: "/images/practice-card.png",
     tags: ["话术", "表达", "练习", "客户嫌贵"],
-    courseId: "day-7",
+    courseId: "growth-day-7",
   },
   {
     id: "aesthetic",
@@ -111,7 +111,7 @@ const library: LibraryItem[] = [
     meta: "9个维度 · 100分严格评分",
     accent: "green",
     tags: ["美学", "打分", "空间", "100分", "严格评分", "工具"],
-    courseId: "day-4",
+    courseId: "aesthetic-day-4",
   },
   {
     id: "color-strip",
@@ -121,7 +121,7 @@ const library: LibraryItem[] = [
     meta: "配色判断 · 现场辅助",
     accent: "rose",
     tags: ["PCCS", "色彩条", "配色", "工具"],
-    courseId: "day-4",
+    courseId: "aesthetic-day-4",
   },
   {
     id: "55387",
@@ -131,7 +131,7 @@ const library: LibraryItem[] = [
     meta: "方案前置检查",
     accent: "cream",
     tags: ["55387", "方案", "预判", "工具"],
-    courseId: "day-5",
+    courseId: "aesthetic-day-5",
   },
   {
     id: "store-diagnosis",
@@ -141,7 +141,7 @@ const library: LibraryItem[] = [
     meta: "助教与老板适用",
     accent: "green",
     tags: ["门店", "增长", "诊断", "工具"],
-    courseId: "day-2",
+    courseId: "growth-day-2",
   },
   {
     id: "two-axis",
@@ -151,7 +151,7 @@ const library: LibraryItem[] = [
     meta: "8种回应方法 · 18类实战场景",
     accent: "green",
     tags: ["8大回应术", "回应术", "异议", "销讲", "实战", "工具"],
-    courseId: "day-7",
+    courseId: "growth-day-7",
   },
   {
     id: "customer-segment",
@@ -161,7 +161,7 @@ const library: LibraryItem[] = [
     meta: "5项判断 · 25分自动分层",
     accent: "cream",
     tags: ["客户身份", "分层", "转化", "25分", "业主", "工具"],
-    courseId: "day-3",
+    courseId: "growth-day-3",
   },
   {
     id: "product-check",
@@ -171,7 +171,7 @@ const library: LibraryItem[] = [
     meta: "5个阶段 · 25分自动分层",
     accent: "cream",
     tags: ["门店", "卖产品", "解决方案", "顾问式销售", "30分", "自检", "模板"],
-    courseId: "day-1",
+    courseId: "growth-day-1",
   },
   {
     id: "quote-check",
@@ -181,7 +181,7 @@ const library: LibraryItem[] = [
     meta: "可复制 · SOP",
     accent: "cream",
     tags: ["报价", "成交", "检查", "模板"],
-    courseId: "day-7",
+    courseId: "growth-day-7",
   },
   {
     id: "silent-followup",
@@ -227,7 +227,7 @@ const library: LibraryItem[] = [
     meta: "真实客户场景 · 逐题训练",
     accent: "rose",
     tags: ["异议", "训练卡", "话术", "追问", "模板"],
-    courseId: "day-7",
+    courseId: "growth-day-7",
   },
   {
     id: "homework-review",
@@ -342,25 +342,25 @@ const pathLevels = [
 ];
 
 const courseItems = [
-  { id: "day-1", day: "DAY 1", title: "认知重建", action: "从卖产品升级为卖整体方案", tool: "《门店是否还在卖产品自检表》", practice: "识别门店当前最大的经营卡点", pass: "能说清门店为什么必须从产品表达升级为方案价值", openId: "product-check" },
-  { id: "day-2", day: "DAY 2", title: "定位选择", action: "判断门店适合小全案、大全案还是整装路径", tool: "定位选择相关资料待从原始课程导入", practice: "对照现状，明确门店下一阶段的主攻方向", pass: "能结合团队、客群和交付能力说明定位选择", openId: "store-diagnosis" },
-  { id: "day-3", day: "DAY 3", title: "客户读心", action: "从客户原话识别显性需求、隐性顾虑与决策阻力", tool: "55387客户预判＋客户身份分层转化表", practice: "拿一个真实客户完成预判，并提出追问", pass: "能给出真实话术、追问问题和明确下一步", openId: "customer-segment" },
-  { id: "day-4", day: "DAY 4", title: "美学能力", action: "把“凭感觉”升级为从色、形、质进行专业判断", tool: "美学打分表＋PCCS色彩条", practice: "找一张空间图，从色、形、质写出好看的原因", pass: "能说明空间哪里好、为什么好、如何优化", openId: "aesthetic" },
-  { id: "day-5", day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
-  { id: "day-6", day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "aesthetic" },
-  { id: "day-7", day: "DAY 7", title: "成交系统", action: "把诊断、影响、优化、结果和推进变成固定动作", tool: "报价前五项检查＋8大回应术", practice: "完成一道真实客户场景表达并明确推进动作", pass: "能做到不硬推、不空讲，并推动客户进入下一步", openId: "two-axis" },
+  { id: "growth-day-1", day: "DAY 1", title: "认知重建", action: "从卖产品升级为卖整体方案", tool: "《门店是否还在卖产品自检表》", practice: "识别门店当前最大的经营卡点", pass: "能说清门店为什么必须从产品表达升级为方案价值", openId: "product-check" },
+  { id: "growth-day-2", day: "DAY 2", title: "定位选择", action: "判断门店适合小全案、大全案还是整装路径", tool: "定位选择相关资料待从原始课程导入", practice: "对照现状，明确门店下一阶段的主攻方向", pass: "能结合团队、客群和交付能力说明定位选择", openId: "store-diagnosis" },
+  { id: "growth-day-3", day: "DAY 3", title: "客户读心", action: "从客户原话识别显性需求、隐性顾虑与决策阻力", tool: "55387客户预判＋客户身份分层转化表", practice: "拿一个真实客户完成预判，并提出追问", pass: "能给出真实话术、追问问题和明确下一步", openId: "customer-segment" },
+  { id: "growth-day-4", day: "DAY 4", title: "美学能力", action: "把“凭感觉”升级为从色、形、质进行专业判断", tool: "美学打分表＋PCCS色彩条", practice: "找一张空间图，从色、形、质写出好看的原因", pass: "能说明空间哪里好、为什么好、如何优化", openId: "aesthetic" },
+  { id: "growth-day-5", day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
+  { id: "growth-day-6", day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "aesthetic" },
+  { id: "growth-day-7", day: "DAY 7", title: "成交系统", action: "把诊断、影响、优化、结果和推进变成固定动作", tool: "报价前五项检查＋8大回应术", practice: "完成一道真实客户场景表达并明确推进动作", pass: "能做到不硬推、不空讲，并推动客户进入下一步", openId: "two-axis" },
 ];
 
 // “精华班课后打卡 7+3”属于全案色彩美学精华班，不属于7天业绩倍增突击营。
 // 两套课程沿用同一套访问权限 ID，避免改动现有 Supabase 授权数据；课程内容在前端按课程体系分开展示。
 const aestheticCourseItems = [
-  { id: "day-1", day: "DAY 1", title: "色彩认知", action: "建立色彩、形态与质感的专业判断基础", tool: "色彩基础知识＋色彩家族表", practice: "用真实空间图说清色彩关系", pass: "能讲清色彩感觉从哪里来", openId: "aesthetic" },
-  { id: "day-2", day: "DAY 2", title: "色彩心理", action: "从色彩心理理解客户的喜欢与排斥", tool: "色彩家族心理印象表", practice: "完成一次客户色彩偏好判断", pass: "能把偏好判断转成沟通问题", openId: "customer-segment" },
-  { id: "day-3", day: "DAY 3", title: "空间表达", action: "用色、形、质表达空间的气质与生活感", tool: "空间观察与表达清单", practice: "拆解一张空间图的色形质关系", pass: "能说清空间哪里好、为什么好", openId: "aesthetic" },
-  { id: "day-4", day: "DAY 4", title: "美学能力", action: "把“凭感觉”升级为从色、形、质进行专业判断", tool: "美学打分表＋PCCS色彩条", practice: "找一张空间图，从色、形、质写出好看的原因", pass: "能说明空间哪里好、为什么好、如何优化", openId: "aesthetic" },
-  { id: "day-5", day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
-  { id: "day-6", day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "color-strip" },
-  { id: "day-7", day: "DAY 7", title: "综合输出", action: "把美学判断、全案思维和客户表达连成完整方法", tool: "美学打分表＋全案表达清单", practice: "完成一次空间方案的完整讲解", pass: "能用专业判断支撑方案价值", openId: "aesthetic" },
+  { id: "aesthetic-day-1", day: "DAY 1", title: "色彩认知", action: "建立色彩、形态与质感的专业判断基础", tool: "色彩基础知识＋色彩家族表", practice: "用真实空间图说清色彩关系", pass: "能讲清色彩感觉从哪里来", openId: "aesthetic" },
+  { id: "aesthetic-day-2", day: "DAY 2", title: "色彩心理", action: "从色彩心理理解客户的喜欢与排斥", tool: "色彩家族心理印象表", practice: "完成一次客户色彩偏好判断", pass: "能把偏好判断转成沟通问题", openId: "customer-segment" },
+  { id: "aesthetic-day-3", day: "DAY 3", title: "空间表达", action: "用色、形、质表达空间的气质与生活感", tool: "空间观察与表达清单", practice: "拆解一张空间图的色形质关系", pass: "能说清空间哪里好、为什么好", openId: "aesthetic" },
+  { id: "aesthetic-day-4", day: "DAY 4", title: "美学能力", action: "把“凭感觉”升级为从色、形、质进行专业判断", tool: "美学打分表＋PCCS色彩条", practice: "找一张空间图，从色、形、质写出好看的原因", pass: "能说明空间哪里好、为什么好、如何优化", openId: "aesthetic" },
+  { id: "aesthetic-day-5", day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
+  { id: "aesthetic-day-6", day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "color-strip" },
+  { id: "aesthetic-day-7", day: "DAY 7", title: "综合输出", action: "把美学判断、全案思维和客户表达连成完整方法", tool: "美学打分表＋全案表达清单", practice: "完成一次空间方案的完整讲解", pass: "能用专业判断支撑方案价值", openId: "aesthetic" },
 ];
 
 const aftercareDays = [
@@ -1230,7 +1230,7 @@ export default function Home() {
             <div className="course-list">
               {visibleCourseItems.map((course) => {
                 const canAccess = Boolean(authUser && courseAccessIds.includes(course.id));
-                const showAestheticAftercare = selectedCourseTrack === "aesthetic" && course.id === "day-7";
+                const showAestheticAftercare = selectedCourseTrack === "aesthetic" && course.id === "aesthetic-day-7";
                 return (
                   <button key={course.day} className={canAccess ? "course-module" : "course-module locked"} onClick={() => openCourse(course)}>
                     <span className="module-day">{course.day}</span>
