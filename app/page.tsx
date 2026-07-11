@@ -351,6 +351,18 @@ const courseItems = [
   { id: "day-7", day: "DAY 7", title: "成交系统", action: "把诊断、影响、优化、结果和推进变成固定动作", tool: "报价前五项检查＋8大回应术", practice: "完成一道真实客户场景表达并明确推进动作", pass: "能做到不硬推、不空讲，并推动客户进入下一步", openId: "two-axis" },
 ];
 
+// “精华班课后打卡 7+3”属于全案色彩美学精华班，不属于7天业绩倍增突击营。
+// 两套课程沿用同一套访问权限 ID，避免改动现有 Supabase 授权数据；课程内容在前端按课程体系分开展示。
+const aestheticCourseItems = [
+  { id: "day-1", day: "DAY 1", title: "色彩认知", action: "建立色彩、形态与质感的专业判断基础", tool: "色彩基础知识＋色彩家族表", practice: "用真实空间图说清色彩关系", pass: "能讲清色彩感觉从哪里来", openId: "aesthetic" },
+  { id: "day-2", day: "DAY 2", title: "色彩心理", action: "从色彩心理理解客户的喜欢与排斥", tool: "色彩家族心理印象表", practice: "完成一次客户色彩偏好判断", pass: "能把偏好判断转成沟通问题", openId: "customer-segment" },
+  { id: "day-3", day: "DAY 3", title: "空间表达", action: "用色、形、质表达空间的气质与生活感", tool: "空间观察与表达清单", practice: "拆解一张空间图的色形质关系", pass: "能说清空间哪里好、为什么好", openId: "aesthetic" },
+  { id: "day-4", day: "DAY 4", title: "美学能力", action: "把“凭感觉”升级为从色、形、质进行专业判断", tool: "美学打分表＋PCCS色彩条", practice: "找一张空间图，从色、形、质写出好看的原因", pass: "能说明空间哪里好、为什么好、如何优化", openId: "aesthetic" },
+  { id: "day-5", day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
+  { id: "day-6", day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "color-strip" },
+  { id: "day-7", day: "DAY 7", title: "综合输出", action: "把美学判断、全案思维和客户表达连成完整方法", tool: "美学打分表＋全案表达清单", practice: "完成一次空间方案的完整讲解", pass: "能用专业判断支撑方案价值", openId: "aesthetic" },
+];
+
 const aftercareDays = [
   { day: 1, phase: "专业知识点", title: "色彩基础知识", focus: "色环形成、四大区、PCCS色彩密码", assignment: "画色环和色调图，并解释12色环到10色环的成因、四大区和PCCS数字含义。", checkin: "录视频，一边画一边说；有条件可拿色卡讲解。" },
   { day: 2, phase: "专业知识点", title: "色彩家族心理印象", focus: "10个色彩家族与无彩色的正反面意义", assignment: "选择一个色彩家族，讲清它的心理印象、正面意义和负面意义。", checkin: "录视频指着颜色讲解，视频较长可分段发送。" },
@@ -748,6 +760,7 @@ export default function Home() {
   const [authOtpSent, setAuthOtpSent] = useState(false);
   const [authBusy, setAuthBusy] = useState(false);
   const [authMessage, setAuthMessage] = useState("");
+  const [selectedCourseTrack, setSelectedCourseTrack] = useState<"growth" | "aesthetic">("growth");
   const [aftercareOpen, setAftercareOpen] = useState(false);
   const [aftercareDay, setAftercareDay] = useState(0);
   const [aftercareDone, setAftercareDone] = useState<Record<number, boolean>>({});
@@ -834,6 +847,7 @@ export default function Home() {
   const responseDraft = buildResponseDraft(selectedResponseTechnique, responseObjection || responseScenario);
   const aftercareCompleted = Object.values(aftercareDone).filter(Boolean).length;
   const selectedAftercareDay = aftercareDays[aftercareDay];
+  const visibleCourseItems = selectedCourseTrack === "aesthetic" ? aestheticCourseItems : courseItems;
 
   const notify = (message: string) => {
     setToast(message);
@@ -1198,16 +1212,25 @@ export default function Home() {
 
       {view === "courses" && (
         <div className="page content-page">
-          <PageIntro eyebrow="7天业绩倍增突击营" title="从经营认知，到可复制的成交系统" description="七天不是堆知识点，而是完成一次认知、定位、读心、美学、全案、配色与成交的连续训练。" />
+          <PageIntro
+            eyebrow={selectedCourseTrack === "aesthetic" ? "全案色彩美学精华班" : "7天业绩倍增突击营"}
+            title={selectedCourseTrack === "aesthetic" ? "从审美判断，到全案方案表达" : "从经营认知，到可复制的成交系统"}
+            description={selectedCourseTrack === "aesthetic" ? "把色彩、空间、全案与表达连成一套专业方法，并用课后7+3打卡完成巩固与输出。" : "七天不是堆知识点，而是完成一次认知、定位、读心、美学、全案、配色与成交的连续训练。"}
+          />
           <div className="course-layout">
             <aside className="filter-panel">
-              <span>课程体系</span><button className="selected">7天业绩倍增突击营</button><button>全案色彩美学精华班</button><button>助教实战训练</button>
-              <span>学习方式</span><button>课程＋工具</button><button>真实案例</button><button>作业与通关</button>
+              <span>课程体系</span>
+              <button className={selectedCourseTrack === "growth" ? "selected" : ""} onClick={() => setSelectedCourseTrack("growth")}>7天业绩倍增突击营</button>
+              <button className={selectedCourseTrack === "aesthetic" ? "selected" : ""} onClick={() => setSelectedCourseTrack("aesthetic")}>全案色彩美学精华班</button>
+              <button>助教实战训练</button>
+              <span>学习方式</span><button>课程＋工具</button><button>真实案例</button>
+              <button className={aftercareOpen || selectedCourseTrack === "aesthetic" ? "selected" : ""} onClick={() => { setSelectedCourseTrack("aesthetic"); setAftercareDay(0); setAftercareOpen(true); }}>作业与通关</button>
               <div className="course-rule"><strong>通关规则</strong><p>看完不算完成。必须用真实客户、门店或方案完成一次应用。</p></div>
             </aside>
             <div className="course-list">
-              {courseItems.map((course) => {
+              {visibleCourseItems.map((course) => {
                 const canAccess = Boolean(authUser && courseAccessIds.includes(course.id));
+                const showAestheticAftercare = selectedCourseTrack === "aesthetic" && course.id === "day-7";
                 return (
                   <button key={course.day} className={canAccess ? "course-module" : "course-module locked"} onClick={() => openCourse(course)}>
                     <span className="module-day">{course.day}</span>
@@ -1217,8 +1240,8 @@ export default function Home() {
                         <span className="module-detail"><small>配套工具</small><strong>{course.tool}</strong></span>
                         <span className="module-detail"><small>实战作业</small><strong>{course.practice}</strong></span>
                         <span className="module-pass">
-                          <small>{course.id === "day-1" ? "作业与通关" : "通关标准"}</small>
-                          {course.id === "day-1" ? (
+                          <small>{showAestheticAftercare ? "作业与通关" : "通关标准"}</small>
+                          {showAestheticAftercare ? (
                             <>
                               <strong>精华班课后打卡 7+3模式</strong>
                               <span className="module-pass-extra">7天专业知识点＋3天综合练习</span>
