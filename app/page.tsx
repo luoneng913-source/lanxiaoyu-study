@@ -47,6 +47,16 @@ type AestheticDimension = {
   judgment: string;
 };
 
+type ResponseTechnique = {
+  index: number;
+  name: string;
+  english: string;
+  concept: string;
+  insight: string;
+  example?: string;
+  effect?: string;
+};
+
 const navigation: { id: View; label: string }[] = [
   { id: "home", label: "学习首页" },
   { id: "courses", label: "课程资料" },
@@ -124,11 +134,11 @@ const library: LibraryItem[] = [
   {
     id: "two-axis",
     kind: "工具",
-    title: "两轴一塔＋八大回应术",
-    summary: "先判断客户所在位置，再选择回应方式，避免所有异议都用同一句话术。",
-    meta: "诊断式销讲 · 场景训练",
+    title: "8大回应术",
+    summary: "从客户原话出发，选择重定义、上推、下切等回应方法，先理解再推进下一步。",
+    meta: "8种回应方法 · 18类实战场景",
     accent: "green",
-    tags: ["两轴一塔", "回应术", "异议", "销讲", "工具"],
+    tags: ["8大回应术", "回应术", "异议", "销讲", "实战", "工具"],
   },
   {
     id: "customer-segment",
@@ -321,7 +331,7 @@ const courseItems = [
   { day: "DAY 4", title: "美学能力", action: "把“凭感觉”升级为从色、形、质进行专业判断", tool: "美学打分表＋PCCS色彩条", practice: "找一张空间图，从色、形、质写出好看的原因", pass: "能说明空间哪里好、为什么好、如何优化", openId: "aesthetic" },
   { day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
   { day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "aesthetic" },
-  { day: "DAY 7", title: "成交系统", action: "把诊断、影响、优化、结果和推进变成固定动作", tool: "报价前五项检查＋十大异议处理训练卡", practice: "完成一道真实客户场景表达并明确推进动作", pass: "能做到不硬推、不空讲，并推动客户进入下一步", openId: "objection-cards" },
+  { day: "DAY 7", title: "成交系统", action: "把诊断、影响、优化、结果和推进变成固定动作", tool: "报价前五项检查＋8大回应术", practice: "完成一道真实客户场景表达并明确推进动作", pass: "能做到不硬推、不空讲，并推动客户进入下一步", openId: "two-axis" },
 ];
 
 const productCheckSections = [
@@ -551,6 +561,128 @@ const aestheticDimensions: AestheticDimension[] = [
   { name: "记忆点", weight: 3, core: "空间是否有一个让人记住的亮点", judgment: "有一个主角：背景墙、沙发、床头、吊灯、装饰画、窗帘或色彩组合" },
 ];
 
+const responseTechniques: ResponseTechnique[] = [
+  {
+    index: 1,
+    name: "重定义",
+    english: "Reframing",
+    concept: "给同一个行为或事件赋予不同的意义，从而改变其情绪色彩和价值判断。意义不是固定的，取决于背景框架。",
+    insight: "重定义不是自欺欺人，而是提供另一种真实的视角，让对方看到更多可能性。",
+  },
+  {
+    index: 2,
+    name: "另一个结果",
+    english: "Another Outcome",
+    concept: "指出当前行为或信息，除了带来对方预期的结果外，还会带来另一个不想要的后果，或者把注意力引向一个更重要的结果。",
+    insight: "不要否定对方的原结果，而是温和地并列出另一个结果，让他自己权衡。",
+  },
+  {
+    index: 3,
+    name: "上推",
+    english: "Chunking Up",
+    concept: "从具体的、细节的行为或事物，上升到更抽象、更广义的类别、价值或意图。",
+    insight: "上推要找到对方真正在乎的价值词（如安全、尊重、自由、效率），而不是随意上推。",
+    example: "红色椅子 → 家具 → 居住舒适 → 安全感",
+  },
+  {
+    index: 4,
+    name: "下切",
+    english: "Chunking Down",
+    concept: "从抽象的、概括的表达，下移到具体的细节、例子、可感知的操作步骤。",
+    insight: "下切后的细节越生动、越贴近对方的感官经验，效果越好。",
+    example: "“他不尊重我” → “他具体做了什么？”",
+  },
+  {
+    index: 5,
+    name: "反例",
+    english: "Counter Example",
+    concept: "找出不符合对方概括的一个或几个实例，从而打破绝对化的信念（如“总是”“从不”“所有”）。",
+    insight: "反例必须是真实的、对方承认的。如果没有现成反例，可以问“假如有……你会怎么想？”",
+  },
+  {
+    index: 6,
+    name: "比喻",
+    english: "Metaphor / Analogy",
+    concept: "用一个类似结构的故事、场景或类比来间接说明道理，绕过对方的意识防御。",
+    insight: "比喻要贴切，不能牵强；最好用对方熟悉的领域。",
+  },
+  {
+    index: 7,
+    name: "现实检验",
+    english: "Reality Check",
+    concept: "要求对方用事实证据来验证他的信念，而不是停留在想象或假设中。类似于元模型中的“失当表现”和“心智阅读”。",
+    insight: "语气要平和，不是审问，而是“我们一起看看事实是怎样的”。",
+    effect: "戳破虚假假设：很多信念经不起事实推敲；迫使对方具体化：把模糊的恐惧变成可检验的命题。",
+  },
+  {
+    index: 8,
+    name: "价值重新排序",
+    english: "Value Evaluation",
+    concept: "质疑或重新评估对方判断所依据的价值观本身，而不是事件。比如：“完美真的那么重要吗？”“省钱是你装修最高的追求吗？”",
+    insight: "价值重评要小心，不要否定对方的核心价值观，而是引导他看到价值的另一面或局限性。",
+  },
+];
+
+const responseScenarios = [
+  "为什么这么贵",
+  "同样的东西为什么这么贵",
+  "给我最低价",
+  "预算就这么多",
+  "你们为什么要这么多钱",
+  "网上便宜很多",
+  "大品牌更放心",
+  "看实地效果",
+  "看图片心里没底",
+  "实际效果差谁负责",
+  "怕增项",
+  "环保怎么证明",
+  "收设计费",
+  "先量房",
+  "没交房，多对比",
+  "做不了主",
+  "随便逛逛",
+  "微信先报价",
+];
+
+const buildResponseDraft = (technique: ResponseTechnique, objection: string) => {
+  const source = objection.trim() || "客户当前的顾虑";
+  const drafts: Record<number, { response: string; question: string }> = {
+    1: {
+      response: `我理解你现在在意的是“${source}”。我们可以换个角度看：这里不只是比较一项价格，而是一起确认这套方案能不能把整体效果、落地过程和后续省心都考虑进去。`,
+      question: "对你来说，效果、预算控制和落地省心，哪一项最需要先确认？",
+    },
+    2: {
+      response: `预算先压低，确实可能减少当下支出；同时也需要一起确认，是否会带来后续搭配、落地或增项的不确定性。我们把两个结果都摆出来，再看哪个更符合你的优先级。`,
+      question: "你更希望先降低当下支出，还是把后期返工和落地风险控制住？",
+    },
+    3: {
+      response: `我听到你在问“${source}”，背后可能不只是一个价格数字，还关系到你想要的居住舒适、安全感和整体效果。我们先确认你最想守住的价值是什么。`,
+      question: "如果价格之外只能优先保留一项，你最在意哪一项？",
+    },
+    4: {
+      response: `你提到“${source}”，我们先不急着下结论。具体是哪个环节、哪一项材料或哪一个交付节点让你担心？把它拆开后，我们才能准确比较。`,
+      question: "你最担心的是价格、材质、效果，还是施工落地的哪一步？",
+    },
+    5: {
+      response: `你说“${source}”，我们可以先找一个真实例子核对一下：有没有出现过与这个判断不同的情况？如果有，差别发生在哪个条件？`,
+      question: "你愿意拿一个真实案例或反例一起对照吗？",
+    },
+    6: {
+      response: `如果把装修比作一套长期使用的系统，单看一个部件的价格，就像只看车轮的价格；真正要看的是整体匹配，以及最后能不能稳定使用。我们可以用你熟悉的例子一起对照。`,
+      question: "除了单项价格，你希望用哪一个熟悉的标准来比较整体方案？",
+    },
+    7: {
+      response: `你提到“${source}”，我们一起把它变成可验证的问题：具体担心哪一项？目前有什么事实、案例或合同条款可以核对？先把假设变成事实，再决定下一步。`,
+      question: "我们先核对哪一条事实或哪一项交付约定？",
+    },
+    8: {
+      response: `我理解你把“${source}”放在前面。我们不否定这个标准，只是一起确认：除了它，你还希望同时守住什么？如果只追求单一标准，可能会牺牲哪些结果？`,
+      question: "在预算、效果、环保和落地省心之间，你会怎么排序？",
+    },
+  };
+  return drafts[technique.index];
+};
+
 const templateText = `姐，我注意到你现在真正卡住的，不是没有学过方法，而是还没有把方法练成客户听得懂的表达。\n\n我们先不急着谈课程。你把最近一次最难推进的客户情况发给我，我先帮你判断：问题出在需求没问透、价值没讲清，还是下一步没有推动。`;
 
 export default function Home() {
@@ -568,6 +700,9 @@ export default function Home() {
   const [aestheticSuggestions, setAestheticSuggestions] = useState<Record<number, string>>({});
   const [aestheticProject, setAestheticProject] = useState("");
   const [aestheticEvaluator, setAestheticEvaluator] = useState("");
+  const [responseTechniqueIndex, setResponseTechniqueIndex] = useState(0);
+  const [responseScenario, setResponseScenario] = useState(responseScenarios[0]);
+  const [responseObjection, setResponseObjection] = useState("");
   const [taskDone, setTaskDone] = useState(false);
   const [toast, setToast] = useState("");
 
@@ -605,6 +740,8 @@ export default function Home() {
       return ((aestheticScores[leftIndex] ?? 0) / left.weight) - ((aestheticScores[rightIndex] ?? 0) / right.weight);
     }).slice(0, 3)
     : [];
+  const selectedResponseTechnique = responseTechniques[responseTechniqueIndex];
+  const responseDraft = buildResponseDraft(selectedResponseTechnique, responseObjection || responseScenario);
 
   const notify = (message: string) => {
     setToast(message);
@@ -641,6 +778,11 @@ export default function Home() {
         const resultText = `蓝筱玉美学体系打分表\n项目：${aestheticProject || "未填写"}\n评估人：${aestheticEvaluator || "未填写"}\n\n总分：${aestheticScore}/100\n已完成：${answeredAestheticItems}/${aestheticDimensions.length}项\n\n${scoreLines}${aestheticWeakest.length ? `\n\n优先优化：${aestheticWeakest.map((dimension) => dimension.name).join("、")}` : ""}`;
         await navigator.clipboard.writeText(resultText);
         notify("美学评分结果已复制");
+      } else if (selected?.id === "two-axis") {
+        const technique = selectedResponseTechnique;
+        const resultText = `8大回应术｜${technique.index}. ${technique.name}（${technique.english}）\n实战场景：${responseScenario}\n客户原话：${responseObjection || "未填写"}\n\n生成的回应：\n${responseDraft.response}\n\n下一步追问：\n${responseDraft.question}\n\n概念：${technique.concept}\n关键认知：${technique.insight}${technique.example ? `\n资料示例：${technique.example}` : ""}${technique.effect ? `\n作用：${technique.effect}` : ""}`;
+        await navigator.clipboard.writeText(resultText);
+        notify("生成的回应术已复制");
       } else {
         await navigator.clipboard.writeText(templateText);
         notify("模板已复制，可直接修改使用");
@@ -868,7 +1010,47 @@ export default function Home() {
             <span className="drawer-kind">{selected.kind}</span>
             <h2>{selected.title}</h2>
             <p className="drawer-summary">{selected.summary}</p>
-            {selected.id === "aesthetic" ? (
+            {selected.id === "two-axis" ? (
+              <div className="response-tool-preview">
+                <div className="store-checklist-tip"><strong>先判断，再回应</strong><span>八大回应术不是固定话术，而是根据客户原话选择回应方向。先记录客户怎么说，再选一种方法练习，避免所有异议都用同一句话回应。</span></div>
+                <label className="response-objection-field"><span>客户原话 / 当前顾虑</span><textarea value={responseObjection} onChange={(event) => setResponseObjection(event.target.value)} placeholder="例如：为什么你们家比网上贵这么多？（可直接填写真实原话）" /></label>
+                <section className="response-scenario-section">
+                  <div className="response-section-heading"><small>八大回应术实战</small><span>PDF资料中的18类客户场景</span></div>
+                  <div className="response-scenario-grid">
+                    {responseScenarios.map((scenario) => (
+                      <button type="button" key={scenario} className={responseScenario === scenario ? "selected" : ""} onClick={() => { setResponseScenario(scenario); setResponseObjection(scenario); }}>{scenario}</button>
+                    ))}
+                  </div>
+                </section>
+                <section className="response-method-section">
+                  <div className="response-section-heading"><small>选择回应方法</small><span>当前 {selectedResponseTechnique.index}/8</span></div>
+                  <div className="response-method-grid">
+                    {responseTechniques.map((technique, index) => (
+                      <button type="button" key={technique.name} className={responseTechniqueIndex === index ? "selected" : ""} onClick={() => setResponseTechniqueIndex(index)}>
+                        <b>0{technique.index}</b><strong>{technique.name}</strong><span>{technique.english}</span>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+                <section className="response-method-detail">
+                  <div className="response-method-heading"><span>0{selectedResponseTechnique.index}</span><div><h3>{selectedResponseTechnique.name}</h3><small>{selectedResponseTechnique.english}</small></div></div>
+                  <div className="response-detail-grid">
+                    <article><small>概念</small><p>{selectedResponseTechnique.concept}</p></article>
+                    <article><small>关键认知</small><p>{selectedResponseTechnique.insight}</p></article>
+                    {selectedResponseTechnique.example && <article><small>资料示例</small><p>{selectedResponseTechnique.example}</p></article>}
+                    {selectedResponseTechnique.effect && <article><small>作用</small><p>{selectedResponseTechnique.effect}</p></article>}
+                  </div>
+                  <div className="response-generated-card">
+                    <div className="response-generated-heading"><small>生成的回应术</small><span>已结合当前客户原话</span></div>
+                    <p className="response-generated-copy">{responseDraft.response}</p>
+                    <div className="response-next-question"><small>下一步追问</small><p>{responseDraft.question}</p></div>
+                    <p className="response-generated-note">这是基于回应结构生成的练习稿，请按真实项目事实补充或删改后再发送。</p>
+                  </div>
+                  <div className="response-practice-note"><small>使用提示</small><p>记录客户原话 → 阅读本项概念与关键认知 → 用自己的真实场景练习一次 → 再确认客户是否愿意进入下一步。</p></div>
+                </section>
+                <p className="response-source-note">内容依据《八大回应术(1)》PDF整理；18类实战场景按原资料保留。工具只帮助你选择练习方向，不替代对客户真实情况的判断。</p>
+              </div>
+            ) : selected.id === "aesthetic" ? (
               <div className="aesthetic-score-preview">
                 <div className="store-checklist-tip"><strong>严格、客观、实事求是</strong><span>按图片中的核心标准和可感知判断打分。每项得分范围为0分至该维度权重，建议使用整数；满分100分。不要夸大，不硬夸，问题记录和优化建议必须对应现场事实。</span></div>
                 <div className="aesthetic-score-fields">
@@ -1021,8 +1203,8 @@ export default function Home() {
             ) : (
               <ol className="lesson-steps"><li>先看案例，判断问题</li><li>使用配套工具拆解</li><li>完成一次真实练习</li></ol>
             )}
-            <button className="drawer-cta" onClick={selected.id === "product-check" || selected.id === "customer-segment" || selected.id === "aesthetic" || selected.kind === "模板" || selected.kind === "练习" ? copyTemplate : () => notify("已加入你的继续学习列表")}>
-              {selected.id === "product-check" ? "复制自检表文字" : selected.id === "customer-segment" ? "复制诊断结果" : selected.id === "aesthetic" ? "复制评分结果" : selected.kind === "模板" || selected.kind === "练习" ? "复制并使用" : "开始学习"} <span>→</span>
+            <button className="drawer-cta" onClick={selected.id === "product-check" || selected.id === "customer-segment" || selected.id === "aesthetic" || selected.id === "two-axis" || selected.kind === "模板" || selected.kind === "练习" ? copyTemplate : () => notify("已加入你的继续学习列表")}>
+              {selected.id === "product-check" ? "复制自检表文字" : selected.id === "customer-segment" ? "复制诊断结果" : selected.id === "aesthetic" ? "复制评分结果" : selected.id === "two-axis" ? "复制生成回应术" : selected.kind === "模板" || selected.kind === "练习" ? "复制并使用" : "开始学习"} <span>→</span>
             </button>
           </aside>
         </div>
