@@ -363,6 +363,29 @@ const aestheticCourseItems = [
   { id: "aesthetic-day-4", day: "DAY 4", title: "色彩沟通与成交", action: "用色彩四区理解沟通需要，把八大谈单痛点转成诊断式回应", tool: "色彩四区交集图＋六大要素＋8大回应术", practice: "选一个真实客户，完成一次色彩沟通假设、一个谈单痛点回应和下一步推进，并把结果沉淀为可发布的案例内容", pass: "能说明四大色彩区的特点与交集，知道色彩只是沟通假设而非人格定论；能用六大要素回应客户痛点，完成从内容引流到诊断、局部方案和下一步推进", openId: "aesthetic" },
 ];
 
+type CourseLesson = {
+  title: string;
+  summary: string;
+  objective: string;
+  keyPoints: string[];
+  exercise: string;
+  pass: string;
+};
+
+const courseLessonContent: Record<string, CourseLesson> = {
+  "growth-day-1": { title: "DAY 1｜认知重建：从卖产品到卖整体解决方案", summary: "先改变客户看见你的方式，再改变门店的成交方式。", objective: "看见客户真正购买的是美而走心的整体生活结果，而不是一个孤立产品。", keyPoints: ["全案不是把品类一次性做大，而是以设计为输出、产品为载体、落地效果为目标。", "客户听到参数不等于看见价值；要把产品翻译成未来的生活画面。", "用“心、道、术、器”检查门店的经营方向、底层规律、流程方法和工具。"], exercise: "完成门店进店、沟通、方案、成交、团队五阶段自检；选一个真实产品，把参数表达改写成一段整体空间价值表达。", pass: "能说清客户为什么不只为产品买单，指出门店当前最大经营卡点，并提出一个从卖产品转向卖整体方案的动作。" },
+  "growth-day-2": { title: "DAY 2｜模式突围：找到业绩倍增快车道", summary: "转型不是照搬别人，而是先找到适合自己资源条件的路径。", objective: "在四条转型路径中做出有证据的选择。", keyPoints: ["用全案思维卖单品：先变认知，不急着重资产投入。", "小全案轻资产：通过自主整合、异业合作或设计买手服务借力。", "大全案整体解决与整装全能：适合已有团队、资源、专业和交付基础的门店。"], exercise: "写下品类、城市、团队、资金和目标，选择最适合的路径，再写出当前最缺的能力与未来30天第一步。", pass: "能解释为什么选这条路径、当前差距在哪里，并确定一个不盲目扩张的破局动作。" },
+  "growth-day-3": { title: "DAY 3｜客户读心术：别急着卖，先看懂人", summary: "客户说出来的是表面问题，没说出来的才是成交关键。", objective: "用观察证据判断客户的沟通入口、需求排序和决策阻力。", keyPoints: ["用性格、接待、需求、价值排序四个十字坐标建立初步判断。", "考拉、孔雀、老虎、猫头鹰只是沟通假设，不是给客户贴人格标签。", "客户关注效果、服务、质量、价格的排序不同，话术不能一套打天下。"], exercise: "选一个最近未成交客户，记录原话、语气、动作和决策方式，写出三条适配追问与下一步表达。", pass: "能用真实观察而非主观猜测判断沟通入口，说明客户最在意的价值，并给出下一步话术。" },
+  "growth-day-4": { title: "DAY 4｜美 × 走心：把感觉变成专业判断", summary: "美不是玄学，空间的感觉可以从色、形、质和光拆解。", objective: "用设计原点和PCCS色彩体系解释空间为什么高级、和谐或翻车。", keyPoints: ["色彩看色相、明度、纯度与印象坐标；造型看线条、图案和时代气质。", "材质与光泽会改变空间的贵感、轻盈感、休闲感和科技感。", "客户说喜欢高级、温柔、有质感时，要把感觉翻译成可判断的关系。"], exercise: "找一张好看但说不清原因的空间图，完成色、形、质、光拆解，并写出客户可能喜欢的感觉。", pass: "能说明空间哪里好或哪里乱，指出判断依据，并提出一条可验证的优化建议。" },
+  "growth-day-5": { title: "DAY 5｜流程成交：用6大要素打造接待路径", summary: "把临场发挥变成团队可以复制的接待流程。", objective: "用AIDMA和全案设计六大要素，让客户从注意走到行动。", keyPoints: ["AIDMA对应注意、兴趣、欲望、记忆和行动，是客户决策的递进路径。", "六大要素是人、感觉、功能、经济、建筑、环境。", "每个要素都要转成真实问题和话术，而不是停留在名词解释。"], exercise: "围绕六大要素各写3—5条问题或话术，设计一次展厅或微信接待流程并让团队演练。", pass: "能按AIDMA组织触点，问出客户真实顾虑，并形成一套不依赖个人状态的接待流程。" },
+  "growth-day-6": { title: "DAY 6｜高手进阶：从配色翻车到高级出彩", summary: "没有丑的颜色，只有失去关系控制的组合。", objective: "用距离、纯度、比例、主次和过渡关系控制配色。", keyPoints: ["配色翻车三件套：颜色距离远且都艳、比例接近一比一、缺少中间过渡。", "距离近更和谐，距离远更出彩，但必须控制纯度、比例和主次。", "用年龄相仿、性格相近、见识共鸣判断色彩和材质能否共同表达主题。"], exercise: "拆解一张翻车空间图，找出三个问题，再用主色、辅助色、中间色和共鸣法则完成重配。", pass: "能讲清配色翻车原因，并做出客户听得懂、能说明依据的高级配色方案。" },
+  "growth-day-7": { title: "DAY 7｜硬核系统：精准销售7步法", summary: "成交不是最后逼出来的，而是前六步递进之后自然发生。", objective: "把前六天的方法收束为一条可复制的成交路径。", keyPoints: ["七步是建立信赖、找痛点、撕痛点、提供解决方案、塑造梦想、提供证据、成交。", "信赖由安全、专业、懂他组成；痛点要基于事实，不制造恐惧。", "证据链解决客户的要不要、信不信、值不值、能不能四个疑问。"], exercise: "选一个未成交客户，逐步复盘卡点，写出当前最需要补强的一步和下一条推进话术。", pass: "能指出客户卡在哪一步，不靠降价逼单，并完成一条信赖—痛点—方案—证据—行动链。" },
+  "aesthetic-day-1": { title: "DAY 1｜经营认知：从卖产品到卖确定性", summary: "把经营视角从单品销售切换到美而走心的整体方案。", objective: "建立全案经营的基本认知，并明确自己的门店转型动作。", keyPoints: ["客户买的是符合自己生活方式的整体结果，不是产品堆叠。", "美是核心竞争力，走心是成交关键；设计要服务于人和生活。", "先用自检表看清门店现状，再决定下一步能力建设。"], exercise: "盘点自己的门店模式，选一个真实客户，写出一次从卖产品到卖确定性的表达。", pass: "能说明门店当前最主要的经营卡点，并明确一个可执行的转型动作。" },
+  "aesthetic-day-2": { title: "DAY 2｜审美判断：把感觉翻译成色形质与比例", summary: "用客观工具替代“好看、感觉不错”的模糊判断。", objective: "建立主题、色彩、空间比例、层次、纵深、平衡和质感的判断框架。", keyPoints: ["先确定空间主题和统一气质，再判断颜色、形态、材质之间是否呼应。", "用美学评分表记录问题，用PCCS和十字坐标解释感觉来源。", "评分必须对应现场事实，不夸大、不硬夸。"], exercise: "选一张空间图，完成100分美学评估、问题记录、优化建议和一次主题重述。", pass: "能客观说明空间哪里好、为什么好、如何优化，并把审美判断讲给客户听懂。" },
+  "aesthetic-day-3": { title: "DAY 3｜诊断成交：从客户原话到成交路径", summary: "先判断人和问题，再决定方案和表达。", objective: "把客户原话转成可验证的需求、顾虑和下一步。", keyPoints: ["记录决策人、使用人、时间、预算、生活方式和真实痛点。", "用55387预判、身份分层和销售七步法判断客户当前阶段。", "不凭色彩或性格结果下定论，所有判断都要回到真实沟通证据。"], exercise: "完成一个真实客户的预判、身份分层和三条追问，写出适配表达与下一步动作。", pass: "能明确客户是谁、真正担心什么、现在缺什么证据，并给出一条可执行成交路径。" },
+  "aesthetic-day-4": { title: "DAY 4｜色彩沟通与成交", summary: "把色彩判断变成客户听得懂、愿意继续沟通的语言。", objective: "用色彩四区、六大要素和回应结构支持客户沟通，而不是给客户贴标签。", keyPoints: ["色彩四区用于提出沟通假设，必须通过客户原话、行为和生活场景验证。", "用六大要素把色彩印象连接到人、感觉、功能、经济、建筑和环境。", "面对异议先回应真实顾虑，再确认客户是否愿意进入下一步。"], exercise: "选一个真实客户，完成一次色彩沟通假设、一条回应术练习和一个下一步推进动作。", pass: "能说明色彩判断依据，避免人格定论，并能把客户顾虑转成诊断、局部方案和下一步。" },
+};
+
 type CourseColumn = "topic" | "tool" | "practice" | "pass";
 const courseColumnOpenIds: Record<string, Partial<Record<CourseColumn, string>>> = {
   "growth-day-1": { topic: "needs", tool: "product-check", practice: "needs", pass: "needs" },
@@ -1044,6 +1067,9 @@ export default function Home() {
     notify("已退出登录");
   };
 
+  const selectedLessonId = selected?.id.startsWith("course-lesson-") ? selected.id.slice("course-lesson-".length) : null;
+  const selectedLesson = selectedLessonId ? courseLessonContent[selectedLessonId] : null;
+
   const downloadCourseFile = async (courseId: string) => {
     if (!authUser) {
       openAuth("login", "请先登录，再下载课程资料。");
@@ -1069,7 +1095,11 @@ export default function Home() {
 
   const copyTemplate = async () => {
     try {
-      if (selected?.id === "needs") {
+      if (selectedLesson) {
+        const text = `${selectedLesson.title}\n\n课程目标：${selectedLesson.objective}\n\n核心内容：\n${selectedLesson.keyPoints.map((point, index) => `${index + 1}. ${point}`).join("\n")}\n\n实战作业：${selectedLesson.exercise}\n\n通关标准：${selectedLesson.pass}`;
+        await navigator.clipboard.writeText(text);
+        notify("课程内容已复制");
+      } else if (selected?.id === "needs") {
         const notes = needsDiagnosisLayers.map((layer, index) => `${layer.title}\n记录：${needsDiagnosisNotes[index] || "未填写"}`).join("\n\n");
         const resultText = `客户需求诊断：从提问到判断\n客户原话：${needsCustomerWords || "未填写"}\n\n${notes}\n\n下一步：先复述客户真正关心的问题，再确认一个可执行动作。`;
         await navigator.clipboard.writeText(resultText);
@@ -1132,6 +1162,18 @@ export default function Home() {
   const openCourseColumn = (course: (typeof courseItems)[number], column: CourseColumn) => {
     if (!authUser || !courseAccessIds.includes(course.id)) {
       openCourse(course);
+      return;
+    }
+    if (column === "topic" && courseLessonContent[course.id]) {
+      const lesson = courseLessonContent[course.id];
+      setSelected({
+        id: `course-lesson-${course.id}`,
+        kind: "课程",
+        title: lesson.title,
+        summary: lesson.summary,
+        meta: "课程主题 · 课程内容",
+        tags: ["课程", "主题", course.day],
+      });
       return;
     }
     const target = courseColumnOpenIds[course.id]?.[column] ?? course.openId;
@@ -1490,7 +1532,19 @@ export default function Home() {
             <h2>{selected.title}</h2>
             <p className="drawer-summary">{selected.summary}</p>
             {selectedDownloadCourseId && <div className="drawer-download-row"><span>课程资料下载</span><button type="button" onClick={() => void downloadCourseFile(selectedDownloadCourseId)}>下载私有资料</button></div>}
-            {selected.id === "needs" ? (
+            {selectedLesson ? (
+              <div className="lesson-preview">
+                <div className="store-checklist-tip"><strong>本节课目标</strong><span>{selectedLesson.objective}</span></div>
+                <section className="lesson-section">
+                  <small>核心内容</small>
+                  <div className="lesson-point-list">
+                    {selectedLesson.keyPoints.map((point, index) => <article key={point}><b>0{index + 1}</b><p>{point}</p></article>)}
+                  </div>
+                </section>
+                <section className="lesson-section"><small>实战作业</small><p>{selectedLesson.exercise}</p></section>
+                <section className="lesson-pass-card"><small>通关标准</small><p>{selectedLesson.pass}</p></section>
+              </div>
+            ) : selected.id === "needs" ? (
               <div className="needs-course-preview">
                 <div className="store-checklist-tip"><strong>本节课目标</strong><span>不急着介绍产品，先通过事实、感受、决策三层提问，判断客户真正关心的问题，再决定讲什么、证明什么、推进哪一步。</span></div>
                 <label className="needs-customer-field"><span>先记录客户原话</span><textarea value={needsCustomerWords} onChange={(event) => setNeedsCustomerWords(event.target.value)} placeholder="例如：我先看看，网上同款便宜很多。" /></label>
@@ -1703,8 +1757,8 @@ export default function Home() {
             ) : (
               <ol className="lesson-steps"><li>先看案例，判断问题</li><li>使用配套工具拆解</li><li>完成一次真实练习</li></ol>
             )}
-            <button className="drawer-cta" onClick={selected.id === "needs" || selected.id === "product-check" || selected.id === "customer-segment" || selected.id === "aesthetic" || selected.id === "two-axis" || selected.kind === "模板" || selected.kind === "练习" ? copyTemplate : () => notify("已加入你的继续学习列表")}>
-              {selected.id === "needs" ? "复制三层提问练习" : selected.id === "product-check" ? "复制自检表文字" : selected.id === "customer-segment" ? "复制诊断结果" : selected.id === "aesthetic" ? "复制评分结果" : selected.id === "two-axis" ? "复制生成回应术" : selected.kind === "模板" || selected.kind === "练习" ? "复制并使用" : "开始学习"} <span>→</span>
+            <button className="drawer-cta" onClick={selectedLesson || selected.id === "needs" || selected.id === "product-check" || selected.id === "customer-segment" || selected.id === "aesthetic" || selected.id === "two-axis" || selected.kind === "模板" || selected.kind === "练习" ? copyTemplate : () => notify("已加入你的继续学习列表")}>
+              {selectedLesson ? "复制本节课内容" : selected.id === "needs" ? "复制三层提问练习" : selected.id === "product-check" ? "复制自检表文字" : selected.id === "customer-segment" ? "复制诊断结果" : selected.id === "aesthetic" ? "复制评分结果" : selected.id === "two-axis" ? "复制生成回应术" : selected.kind === "模板" || selected.kind === "练习" ? "复制并使用" : "开始学习"} <span>→</span>
             </button>
           </aside>
         </div>
