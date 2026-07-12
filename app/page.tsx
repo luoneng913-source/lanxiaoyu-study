@@ -354,9 +354,9 @@ const courseItems = [
 // “精华班课后打卡 7+3”属于全案色彩美学精华班，不属于7天业绩倍增突击营。
 // 两套课程沿用同一套访问权限 ID，避免改动现有 Supabase 授权数据；课程内容在前端按课程体系分开展示。
 const aestheticCourseItems = [
-  { id: "aesthetic-day-1", day: "DAY 1", title: "色彩认知", action: "建立色彩、形态与质感的专业判断基础", tool: "色彩基础知识＋色彩家族表", practice: "用真实空间图说清色彩关系", pass: "能讲清色彩感觉从哪里来", openId: "aesthetic" },
-  { id: "aesthetic-day-2", day: "DAY 2", title: "色彩心理", action: "从色彩心理理解客户的喜欢与排斥", tool: "色彩家族心理印象表", practice: "完成一次客户色彩偏好判断", pass: "能把偏好判断转成沟通问题", openId: "customer-segment" },
-  { id: "aesthetic-day-3", day: "DAY 3", title: "空间表达", action: "用色、形、质表达空间的气质与生活感", tool: "空间观察与表达清单", practice: "拆解一张空间图的色形质关系", pass: "能说清空间哪里好、为什么好", openId: "aesthetic" },
+  { id: "aesthetic-day-1", day: "DAY 1", title: "经营认知", action: "看懂行业趋势，从卖产品升级为卖确定性", tool: "《门店是否还在卖产品自检表》＋经营模式选择清单", practice: "盘点自己的门店模式，选一个真实客户，写出从卖产品到卖确定性的转型动作，并画出一次销售七步法路径", pass: "能说清行业为什么变、客户为什么不只比价格，并明确门店下一阶段的经营模式和一个可执行动作", openId: "product-check" },
+  { id: "aesthetic-day-2", day: "DAY 2", title: "审美判断", action: "把“感觉”翻译成主题、色、形、质与比例", tool: "蓝筱玉美学体系打分表＋PCCS色彩条＋十字坐标工具", practice: "选一张真实空间图，完成印象坐标、主题定位、色形质拆解、比例判断和一次 AI 优化", pass: "能用工具客观说明空间哪里好、为什么好、如何优化，并达到课程要求的坐标判断准确度", openId: "aesthetic" },
+  { id: "aesthetic-day-3", day: "DAY 3", title: "诊断成交", action: "从客户原话识别决策人、客户类型、生活痛点与成交路径", tool: "55387客户预判＋客户身份分层转化表＋销售七步法", practice: "拿一个真实客户完成信息记录、六大要素诊断和四型客户判断，写出三条追问、适配表达和下一步推进动作", pass: "不凭主观判断，能明确决策人和使用人，判断客户类型，围绕六大要素给出有证据的方案与下一步", openId: "customer-segment" },
   { id: "aesthetic-day-4", day: "DAY 4", title: "美学能力", action: "把“凭感觉”升级为从色、形、质进行专业判断", tool: "美学打分表＋PCCS色彩条", practice: "找一张空间图，从色、形、质写出好看的原因", pass: "能说明空间哪里好、为什么好、如何优化", openId: "aesthetic" },
   { id: "aesthetic-day-5", day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
   { id: "aesthetic-day-6", day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "color-strip" },
