@@ -15,6 +15,7 @@ type LibraryItem = {
   image?: string;
   tags: string[];
   courseId?: string;
+  courseIds?: string[];
 };
 
 type ProductCheckItem = {
@@ -131,7 +132,7 @@ const library: LibraryItem[] = [
     meta: "方案前置检查",
     accent: "cream",
     tags: ["55387", "方案", "预判", "工具"],
-    courseId: "aesthetic-day-3",
+    courseIds: ["growth-day-3", "aesthetic-day-3"],
   },
   {
     id: "store-diagnosis",
@@ -258,6 +259,8 @@ const library: LibraryItem[] = [
   },
 ];
 
+const requiredCourseIds = (item: LibraryItem) => item.courseIds ?? (item.courseId ? [item.courseId] : []);
+
 const pathLevels = [
   {
     stage: "第1层",
@@ -342,13 +345,13 @@ const pathLevels = [
 ];
 
 const courseItems = [
-  { id: "growth-day-1", day: "DAY 1", title: "认知重建", action: "从卖产品升级为卖整体方案", tool: "《门店是否还在卖产品自检表》", practice: "识别门店当前最大的经营卡点", pass: "能说清门店为什么必须从产品表达升级为方案价值", openId: "product-check" },
-  { id: "growth-day-2", day: "DAY 2", title: "定位选择", action: "判断门店适合小全案、大全案还是整装路径", tool: "定位选择相关资料待从原始课程导入", practice: "对照现状，明确门店下一阶段的主攻方向", pass: "能结合团队、客群和交付能力说明定位选择", openId: "store-diagnosis" },
-  { id: "growth-day-3", day: "DAY 3", title: "客户读心", action: "从客户原话识别显性需求、隐性顾虑与决策阻力", tool: "55387客户预判＋客户身份分层转化表", practice: "拿一个真实客户完成预判，并提出追问", pass: "能给出真实话术、追问问题和明确下一步", openId: "customer-segment" },
-  { id: "growth-day-4", day: "DAY 4", title: "美学能力", action: "把“凭感觉”升级为从色、形、质进行专业判断", tool: "美学打分表＋PCCS色彩条", practice: "找一张空间图，从色、形、质写出好看的原因", pass: "能说明空间哪里好、为什么好、如何优化", openId: "aesthetic" },
-  { id: "growth-day-5", day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
-  { id: "growth-day-6", day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "aesthetic" },
-  { id: "growth-day-7", day: "DAY 7", title: "成交系统", action: "把诊断、影响、优化、结果和推进变成固定动作", tool: "报价前五项检查＋8大回应术", practice: "完成一道真实客户场景表达并明确推进动作", pass: "能做到不硬推、不空讲，并推动客户进入下一步", openId: "two-axis" },
+  { id: "growth-day-1", day: "DAY 1", title: "认知重建｜从卖产品到卖整体解决方案", action: "看见客户真正购买的是美而走心的整体生活结果，而不是孤立产品", tool: "《门店是否还在卖产品自检表》＋心道术器认知框架", practice: "完成门店进店、沟通、方案、成交、团队五阶段自检；选一个真实产品，把参数表达改写成一段整体空间价值表达", pass: "能说清客户为什么不只为产品买单，明确门店当前最主要的经营卡点，并提出一个从卖产品转向卖整体方案的可执行动作", openId: "product-check" },
+  { id: "growth-day-2", day: "DAY 2", title: "模式突围｜找到业绩倍增快车道", action: "结合品类、城市、资源、团队与资金，选择适合自己的转型路径", tool: "门店模式四路径定位表＋3分钟门店增长诊断", practice: "在“全案思维卖单品、小全案轻资产、大全案整体解决、整装全能”四条路径中完成定位，写出当前最缺的能力和未来30天第一步动作", pass: "能用现状证据说明为什么选择这条路径，讲清资源与能力差距，并确定一个不盲目扩张、可以马上执行的破局动作", openId: "store-diagnosis" },
+  { id: "growth-day-3", day: "DAY 3", title: "客户读心术｜别急着卖，先看懂人", action: "从客户原话、行为与决策方式识别性格、接待、需求和价值排序", tool: "小蓝飞镖法4大十字坐标＋55387客户预判＋客户身份分层转化表", practice: "选一个最近未成交客户，记录原话和行为，完成考拉、孔雀、老虎、猫头鹰的初步判断，写出适配接待方式、三条追问和价值排序", pass: "不把坐标当人格标签，能用观察证据判断沟通入口，明确客户真正关注的效果、服务、质量或价格，并给出下一步话术", openId: "customer-segment" },
+  { id: "growth-day-4", day: "DAY 4", title: "美 × 走心｜把感觉变成专业判断", action: "用色、形、质和PCCS色彩体系解释空间为什么高级、和谐或翻车", tool: "蓝筱玉美学体系打分表＋PCCS色彩条＋色形质十字坐标", practice: "找一张“好看但说不清原因”的空间图，完成色、形、质、光拆解，定位色彩印象并写出客户可能喜欢的感觉", pass: "能从色相、明度、纯度、造型、图案、材质和光泽说明空间问题，不再只凭感觉搭配，并给出一条可验证的优化建议", openId: "aesthetic" },
+  { id: "growth-day-5", day: "DAY 5", title: "流程成交｜用6大要素打造接待路径", action: "把AIDMA触点和全案设计6大要素转成可复制、可训练的门店流程", tool: "AIDMA法则＋全案设计6大要素（人、感觉、功能、经济、建筑、环境）", practice: "围绕6大要素各写3—5条真实问题或话术，设计一次从吸引注意到购买行动的接待流程，并让团队演练一轮", pass: "能用AIDMA组织注意、兴趣、欲望、记忆和行动；能通过6大要素问出客户真实顾虑，不再依赖临场发挥", openId: "case-library" },
+  { id: "growth-day-6", day: "DAY 6", title: "高手进阶｜从配色翻车到高级出彩", action: "用距离、纯度、比例、主次和关系控制配色，让空间稳定出彩", tool: "PCCS色球＋配色翻车三件套（狗屁法则）＋美搭法则＋恋爱式搭配法则", practice: "拿一张配色翻车的空间图，找出“颜色太远太艳、比例接近1:1、缺少中间过渡”三个问题，再按色彩距离、主次、中间色以及年龄/性格/见识共鸣完成重配", pass: "能判断配色翻车的具体原因，讲清和谐与张力的关系，并用主次、纯度、比例和过渡做出一版客户听得懂的高级配色方案", openId: "aesthetic" },
+  { id: "growth-day-7", day: "DAY 7", title: "硬核系统｜精准销售7步法", action: "把前6天的全案、美学、客户、流程和配色收束成可复制的成交路径", tool: "精准销售7步法＋客户6大要素＋可视化证据链清单", practice: "选一个最近未成交客户，按建立信赖、找痛点、撕痛点、提供解决方案、塑造梦想、提供证据、成交七步逐项复盘，写出当前卡点和下一步推进话术", pass: "能明确客户卡在第几步，不靠降价逼单；能用专业、需求、方案、梦想和证据组成一条完整推进链，并让客户自然进入下一步", openId: "two-axis" },
 ];
 
 // “精华班课后打卡 7+3”属于全案色彩美学精华班，不属于7天业绩倍增突击营。
@@ -808,7 +811,10 @@ export default function Home() {
     const normalized = query.trim().toLowerCase();
     if (!normalized) return [];
     return library
-      .filter((item) => !item.courseId || Boolean(authUser && courseAccessIds.includes(item.courseId)))
+      .filter((item) => {
+        const requiredIds = requiredCourseIds(item);
+        return requiredIds.length === 0 || Boolean(authUser && requiredIds.some((courseId) => courseAccessIds.includes(courseId)));
+      })
       .filter((item) =>
         [item.title, item.summary, item.kind, ...item.tags]
           .join(" ")
@@ -1053,11 +1059,12 @@ export default function Home() {
   const openItem = (entry: string | LibraryItem) => {
     const item = typeof entry === "string" ? library.find((candidate) => candidate.id === entry) : entry;
     if (!item) return;
-    if (item.courseId && !authUser) {
+    const requiredIds = requiredCourseIds(item);
+    if (requiredIds.length > 0 && !authUser) {
       openAuth("login", "请先登录，登录后系统会按课程权限显示资料。");
       return;
     }
-    if (item.courseId && !courseAccessIds.includes(item.courseId)) {
+    if (requiredIds.length > 0 && !requiredIds.some((courseId) => courseAccessIds.includes(courseId))) {
       notify("当前账号暂无该课程权限");
       return;
     }
@@ -1075,6 +1082,8 @@ export default function Home() {
     }
     openItem(course.openId);
   };
+
+  const selectedDownloadCourseId = selected ? requiredCourseIds(selected).find((courseId) => courseAccessIds.includes(courseId)) : undefined;
 
   return (
     <main className="site-shell">
@@ -1319,7 +1328,11 @@ export default function Home() {
           eyebrow="模板库"
           title="复制的不是文字，是经过验证的推进结构"
           description="按课前诊断、客户沟通、成交跟进和课后复盘分类使用。"
-          items={library.filter((item) => (item.kind === "模板" || item.kind === "练习") && (!item.courseId || Boolean(authUser && courseAccessIds.includes(item.courseId))))}
+          items={library.filter((item) => {
+            if (item.kind !== "模板" && item.kind !== "练习") return false;
+            const requiredIds = requiredCourseIds(item);
+            return requiredIds.length === 0 || Boolean(authUser && requiredIds.some((courseId) => courseAccessIds.includes(courseId)));
+          })}
           onOpen={openItem}
         />
       )}
@@ -1408,7 +1421,7 @@ export default function Home() {
             <span className="drawer-kind">{selected.kind}</span>
             <h2>{selected.title}</h2>
             <p className="drawer-summary">{selected.summary}</p>
-            {selected.courseId && <div className="drawer-download-row"><span>课程资料下载</span><button type="button" onClick={() => void downloadCourseFile(selected.courseId ?? "")}>下载私有资料</button></div>}
+            {selectedDownloadCourseId && <div className="drawer-download-row"><span>课程资料下载</span><button type="button" onClick={() => void downloadCourseFile(selectedDownloadCourseId)}>下载私有资料</button></div>}
             {selected.id === "two-axis" ? (
               <div className="response-tool-preview">
                 <div className="store-checklist-tip"><strong>先判断，再回应</strong><span>八大回应术不是固定话术，而是根据客户原话选择回应方向。先记录客户怎么说，再选一种方法练习，避免所有异议都用同一句话回应。</span></div>
