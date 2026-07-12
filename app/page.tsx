@@ -345,7 +345,7 @@ const pathLevels = [
 ];
 
 const courseItems = [
-  { id: "growth-day-1", day: "DAY 1", title: "认知重建｜从卖产品到卖整体解决方案", action: "看见客户真正购买的是美而走心的整体生活结果，而不是孤立产品", tool: "《门店是否还在卖产品自检表》＋心道术器认知框架", practice: "完成门店进店、沟通、方案、成交、团队五阶段自检；选一个真实产品，把参数表达改写成一段整体空间价值表达", pass: "能说清客户为什么不只为产品买单，明确门店当前最主要的经营卡点，并提出一个从卖产品转向卖整体方案的可执行动作", openId: "product-check" },
+  { id: "growth-day-1", day: "DAY 1", title: "认知重建｜从卖产品到卖整体解决方案", action: "看见客户真正购买的是美而走心的整体生活结果，而不是孤立产品", tool: "《门店是否还在卖产品自检表》＋心道术器认知框架", practice: "完成门店进店、沟通、方案、成交、团队五阶段自检；选一个真实产品，把参数表达改写成一段整体空间价值表达", pass: "能说清客户为什么不只为产品买单，明确门店当前最主要的经营卡点，并提出一个从卖产品转向卖整体方案的可执行动作", openId: "needs" },
   { id: "growth-day-2", day: "DAY 2", title: "模式突围｜找到业绩倍增快车道", action: "结合品类、城市、资源、团队与资金，选择适合自己的转型路径", tool: "门店模式四路径定位表＋3分钟门店增长诊断", practice: "在“全案思维卖单品、小全案轻资产、大全案整体解决、整装全能”四条路径中完成定位，写出当前最缺的能力和未来30天第一步动作", pass: "能用现状证据说明为什么选择这条路径，讲清资源与能力差距，并确定一个不盲目扩张、可以马上执行的破局动作", openId: "store-diagnosis" },
   { id: "growth-day-3", day: "DAY 3", title: "客户读心术｜别急着卖，先看懂人", action: "从客户原话、行为与决策方式识别性格、接待、需求和价值排序", tool: "小蓝飞镖法4大十字坐标＋55387客户预判＋客户身份分层转化表", practice: "选一个最近未成交客户，记录原话和行为，完成考拉、孔雀、老虎、猫头鹰的初步判断，写出适配接待方式、三条追问和价值排序", pass: "不把坐标当人格标签，能用观察证据判断沟通入口，明确客户真正关注的效果、服务、质量或价格，并给出下一步话术", openId: "customer-segment" },
   { id: "growth-day-4", day: "DAY 4", title: "美 × 走心｜把感觉变成专业判断", action: "用色、形、质和PCCS色彩体系解释空间为什么高级、和谐或翻车", tool: "蓝筱玉美学体系打分表＋PCCS色彩条＋色形质十字坐标", practice: "找一张“好看但说不清原因”的空间图，完成色、形、质、光拆解，定位色彩印象并写出客户可能喜欢的感觉", pass: "能从色相、明度、纯度、造型、图案、材质和光泽说明空间问题，不再只凭感觉搭配，并给出一条可验证的优化建议", openId: "aesthetic" },
@@ -362,6 +362,21 @@ const aestheticCourseItems = [
   { id: "aesthetic-day-3", day: "DAY 3", title: "诊断成交", action: "从客户原话识别决策人、客户类型、生活痛点与成交路径", tool: "55387客户预判＋客户身份分层转化表＋销售七步法", practice: "拿一个真实客户完成信息记录、六大要素诊断和四型客户判断，写出三条追问、适配表达和下一步推进动作", pass: "不凭主观判断，能明确决策人和使用人，判断客户类型，围绕六大要素给出有证据的方案与下一步", openId: "customer-segment" },
   { id: "aesthetic-day-4", day: "DAY 4", title: "色彩沟通与成交", action: "用色彩四区理解沟通需要，把八大谈单痛点转成诊断式回应", tool: "色彩四区交集图＋六大要素＋8大回应术", practice: "选一个真实客户，完成一次色彩沟通假设、一个谈单痛点回应和下一步推进，并把结果沉淀为可发布的案例内容", pass: "能说明四大色彩区的特点与交集，知道色彩只是沟通假设而非人格定论；能用六大要素回应客户痛点，完成从内容引流到诊断、局部方案和下一步推进", openId: "aesthetic" },
 ];
+
+type CourseColumn = "topic" | "tool" | "practice" | "pass";
+const courseColumnOpenIds: Record<string, Partial<Record<CourseColumn, string>>> = {
+  "growth-day-1": { topic: "needs", tool: "product-check", practice: "needs", pass: "needs" },
+  "growth-day-2": { topic: "store-diagnosis", tool: "store-diagnosis", practice: "store-diagnosis", pass: "store-diagnosis" },
+  "growth-day-3": { topic: "customer-segment", tool: "customer-segment", practice: "customer-segment", pass: "customer-segment" },
+  "growth-day-4": { topic: "aesthetic", tool: "aesthetic", practice: "aesthetic", pass: "aesthetic" },
+  "growth-day-5": { topic: "case-library", tool: "case-library", practice: "case-library", pass: "case-library" },
+  "growth-day-6": { topic: "aesthetic", tool: "aesthetic", practice: "aesthetic", pass: "aesthetic" },
+  "growth-day-7": { topic: "two-axis", tool: "two-axis", practice: "two-axis", pass: "two-axis" },
+  "aesthetic-day-1": { topic: "needs", tool: "product-check", practice: "product-check", pass: "product-check" },
+  "aesthetic-day-2": { topic: "aesthetic", tool: "aesthetic", practice: "aesthetic", pass: "aesthetic" },
+  "aesthetic-day-3": { topic: "customer-segment", tool: "customer-segment", practice: "customer-segment", pass: "customer-segment" },
+  "aesthetic-day-4": { topic: "aesthetic", tool: "two-axis", practice: "two-axis", pass: "aftercare" },
+};
 
 const aftercareDays = [
   { day: 1, phase: "专业知识点", title: "色彩基础知识", focus: "色环形成、四大区、PCCS色彩密码", assignment: "画色环和色调图，并解释12色环到10色环的成因、四大区和PCCS数字含义。", checkin: "录视频，一边画一边说；有条件可拿色卡讲解。" },
@@ -725,6 +740,30 @@ const buildResponseDraft = (technique: ResponseTechnique, objection: string) => 
   return drafts[technique.index];
 };
 
+const needsDiagnosisLayers = [
+  {
+    index: "01",
+    title: "事实层：先问清现状",
+    goal: "把客户的模糊描述还原成真实项目、家庭和装修阶段。",
+    questions: ["您现在房子进行到哪一步了？", "这次主要想先解决哪个空间或哪个环节？", "家里通常是谁一起参与决定？"],
+    output: "得到可核对的事实：项目阶段、空间范围、参与人和当前任务。",
+  },
+  {
+    index: "02",
+    title: "感受层：追到真正顾虑",
+    goal: "从“想要什么”继续追问到“为什么在意”，找到显性需求背后的担心。",
+    questions: ["您最希望最后呈现什么感觉？", "过去看过或做过的方案，哪里让您不满意？", "如果这个问题没有解决，您最担心后面付出什么代价？"],
+    output: "区分客户是在意效果、生活方式、预算、时间、质量，还是害怕返工和落地翻车。",
+  },
+  {
+    index: "03",
+    title: "决策层：确认行动条件",
+    goal: "确认客户如何做决定，以及什么证据能让他愿意进入下一步。",
+    questions: ["您和家人最后会按什么标准来比较方案？", "目前还有哪些人或条件需要一起确认？", "如果把这个关键问题讲清楚，您下一步愿意先做什么？"],
+    output: "明确决策人、比较标准、未决条件和下一步动作，不急着在信息不足时报价。",
+  },
+];
+
 const templateText = `姐，我注意到你现在真正卡住的，不是没有学过方法，而是还没有把方法练成客户听得懂的表达。\n\n我们先不急着谈课程。你把最近一次最难推进的客户情况发给我，我先帮你判断：问题出在需求没问透、价值没讲清，还是下一步没有推动。`;
 
 export default function Home() {
@@ -732,6 +771,8 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<LibraryItem | null>(null);
   const [selectedLevel, setSelectedLevel] = useState(4);
+  const [needsCustomerWords, setNeedsCustomerWords] = useState("");
+  const [needsDiagnosisNotes, setNeedsDiagnosisNotes] = useState<Record<number, string>>({});
   const [storeAnswers, setStoreAnswers] = useState<Record<number, boolean>>({});
   const [customerAnswers, setCustomerAnswers] = useState<Record<number, 1 | 3 | 5>>({});
   const [customerName, setCustomerName] = useState("");
@@ -1028,7 +1069,12 @@ export default function Home() {
 
   const copyTemplate = async () => {
     try {
-      if (selected?.id === "product-check") {
+      if (selected?.id === "needs") {
+        const notes = needsDiagnosisLayers.map((layer, index) => `${layer.title}\n记录：${needsDiagnosisNotes[index] || "未填写"}`).join("\n\n");
+        const resultText = `客户需求诊断：从提问到判断\n客户原话：${needsCustomerWords || "未填写"}\n\n${notes}\n\n下一步：先复述客户真正关心的问题，再确认一个可执行动作。`;
+        await navigator.clipboard.writeText(resultText);
+        notify("三层提问练习已复制");
+      } else if (selected?.id === "product-check") {
         await navigator.clipboard.writeText(productCheckText);
         notify("自检表文字已复制");
       } else if (selected?.id === "customer-segment") {
@@ -1081,6 +1127,21 @@ export default function Home() {
       return;
     }
     openItem(course.openId);
+  };
+
+  const openCourseColumn = (course: (typeof courseItems)[number], column: CourseColumn) => {
+    if (!authUser || !courseAccessIds.includes(course.id)) {
+      openCourse(course);
+      return;
+    }
+    const target = courseColumnOpenIds[course.id]?.[column] ?? course.openId;
+    if (target === "aftercare") {
+      setSelectedCourseTrack("aesthetic");
+      setAftercareDay(0);
+      setAftercareOpen(true);
+      return;
+    }
+    openItem(target);
   };
 
   const selectedDownloadCourseId = selected ? requiredCourseIds(selected).find((courseId) => courseAccessIds.includes(courseId)) : undefined;
@@ -1238,14 +1299,21 @@ export default function Home() {
                 const canAccess = Boolean(authUser && courseAccessIds.includes(course.id));
                 const showAestheticAftercare = selectedCourseTrack === "aesthetic" && course.id === "aesthetic-day-4";
                 return (
-                  <button key={course.day} className={canAccess ? "course-module" : "course-module locked"} onClick={() => openCourse(course)}>
+                  <div
+                    key={course.day}
+                    className={canAccess ? "course-module" : "course-module locked"}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => openCourse(course)}
+                    onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openCourse(course); } }}
+                  >
                     <span className="module-day">{course.day}</span>
                     {canAccess ? (
                       <>
-                        <span className="module-main"><small>课程主题</small><strong>{course.title}</strong><p>{course.action}</p></span>
-                        <span className="module-detail"><small>配套工具</small><strong>{course.tool}</strong></span>
-                        <span className="module-detail"><small>实战作业</small><strong>{course.practice}</strong></span>
-                        <span className="module-pass">
+                        <button type="button" className="module-cell module-main" onClick={(event) => { event.stopPropagation(); openCourseColumn(course, "topic"); }}><small>课程主题</small><strong>{course.title}</strong><p>{course.action}</p></button>
+                        <button type="button" className="module-cell module-detail" onClick={(event) => { event.stopPropagation(); openCourseColumn(course, "tool"); }}><small>配套工具</small><strong>{course.tool}</strong></button>
+                        <button type="button" className="module-cell module-detail" onClick={(event) => { event.stopPropagation(); openCourseColumn(course, "practice"); }}><small>实战作业</small><strong>{course.practice}</strong></button>
+                        <button type="button" className="module-cell module-pass" onClick={(event) => { event.stopPropagation(); openCourseColumn(course, "pass"); }}>
                           <small>{showAestheticAftercare ? "作业与通关" : "通关标准"}</small>
                           {showAestheticAftercare ? (
                             <>
@@ -1262,13 +1330,13 @@ export default function Home() {
                               </span>
                             </>
                           ) : <strong>{course.pass}</strong>}
-                        </span>
+                        </button>
                       </>
                     ) : (
                       <span className="module-locked"><small>{authUser ? "课程权限" : "登录后查看"}</small><strong>{authUser ? "当前账号暂无该课程权限" : "登录后查看你已开通的课程"}</strong><p>{authUser ? "如需开通，请联系课程助教。" : "登录后系统会按账号权限显示内容。"}</p></span>
                     )}
                     <b className="module-arrow">→</b>
-                  </button>
+                  </div>
                 );
               })}
             </div>
@@ -1422,7 +1490,27 @@ export default function Home() {
             <h2>{selected.title}</h2>
             <p className="drawer-summary">{selected.summary}</p>
             {selectedDownloadCourseId && <div className="drawer-download-row"><span>课程资料下载</span><button type="button" onClick={() => void downloadCourseFile(selectedDownloadCourseId)}>下载私有资料</button></div>}
-            {selected.id === "two-axis" ? (
+            {selected.id === "needs" ? (
+              <div className="needs-course-preview">
+                <div className="store-checklist-tip"><strong>本节课目标</strong><span>不急着介绍产品，先通过事实、感受、决策三层提问，判断客户真正关心的问题，再决定讲什么、证明什么、推进哪一步。</span></div>
+                <label className="needs-customer-field"><span>先记录客户原话</span><textarea value={needsCustomerWords} onChange={(event) => setNeedsCustomerWords(event.target.value)} placeholder="例如：我先看看，网上同款便宜很多。" /></label>
+                <div className="needs-layer-list">
+                  {needsDiagnosisLayers.map((layer, layerIndex) => (
+                    <section className="needs-layer-card" key={layer.index}>
+                      <div className="needs-layer-heading"><span>{layer.index}</span><div><small>第{layerIndex + 1}层提问</small><h3>{layer.title}</h3></div></div>
+                      <p className="needs-layer-goal">{layer.goal}</p>
+                      <div className="needs-question-list">
+                        {layer.questions.map((question) => <div key={question}><b>问</b><span>{question}</span></div>)}
+                      </div>
+                      <div className="needs-output"><small>这一层要得到</small><p>{layer.output}</p></div>
+                      <label className="needs-note-field"><span>你的记录</span><textarea value={needsDiagnosisNotes[layerIndex] ?? ""} onChange={(event) => setNeedsDiagnosisNotes((current) => ({ ...current, [layerIndex]: event.target.value }))} placeholder="写客户原话、你的判断或证据" /></label>
+                    </section>
+                  ))}
+                </div>
+                <div className="needs-practice-card"><small>实战作业</small><p>选择一个最近未成交客户，完成三层提问记录。最后用一句话复述：客户真正关心的是____，下一步先确认____。</p></div>
+                <p className="response-source-note">判断标准：先有事实，再谈感受；先找真正顾虑，再给局部建议；信息不足时不急着报价，不用产品参数替代需求诊断。</p>
+              </div>
+            ) : selected.id === "two-axis" ? (
               <div className="response-tool-preview">
                 <div className="store-checklist-tip"><strong>先判断，再回应</strong><span>八大回应术不是固定话术，而是根据客户原话选择回应方向。先记录客户怎么说，再选一种方法练习，避免所有异议都用同一句话回应。</span></div>
                 <label className="response-objection-field"><span>客户原话 / 当前顾虑</span><textarea value={responseObjection} onChange={(event) => setResponseObjection(event.target.value)} placeholder="例如：为什么你们家比网上贵这么多？（可直接填写真实原话）" /></label>
@@ -1615,8 +1703,8 @@ export default function Home() {
             ) : (
               <ol className="lesson-steps"><li>先看案例，判断问题</li><li>使用配套工具拆解</li><li>完成一次真实练习</li></ol>
             )}
-            <button className="drawer-cta" onClick={selected.id === "product-check" || selected.id === "customer-segment" || selected.id === "aesthetic" || selected.id === "two-axis" || selected.kind === "模板" || selected.kind === "练习" ? copyTemplate : () => notify("已加入你的继续学习列表")}>
-              {selected.id === "product-check" ? "复制自检表文字" : selected.id === "customer-segment" ? "复制诊断结果" : selected.id === "aesthetic" ? "复制评分结果" : selected.id === "two-axis" ? "复制生成回应术" : selected.kind === "模板" || selected.kind === "练习" ? "复制并使用" : "开始学习"} <span>→</span>
+            <button className="drawer-cta" onClick={selected.id === "needs" || selected.id === "product-check" || selected.id === "customer-segment" || selected.id === "aesthetic" || selected.id === "two-axis" || selected.kind === "模板" || selected.kind === "练习" ? copyTemplate : () => notify("已加入你的继续学习列表")}>
+              {selected.id === "needs" ? "复制三层提问练习" : selected.id === "product-check" ? "复制自检表文字" : selected.id === "customer-segment" ? "复制诊断结果" : selected.id === "aesthetic" ? "复制评分结果" : selected.id === "two-axis" ? "复制生成回应术" : selected.kind === "模板" || selected.kind === "练习" ? "复制并使用" : "开始学习"} <span>→</span>
             </button>
           </aside>
         </div>
