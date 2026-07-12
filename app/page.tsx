@@ -131,7 +131,7 @@ const library: LibraryItem[] = [
     meta: "方案前置检查",
     accent: "cream",
     tags: ["55387", "方案", "预判", "工具"],
-    courseId: "aesthetic-day-5",
+    courseId: "aesthetic-day-3",
   },
   {
     id: "store-diagnosis",
@@ -358,9 +358,6 @@ const aestheticCourseItems = [
   { id: "aesthetic-day-2", day: "DAY 2", title: "审美判断", action: "把“感觉”翻译成主题、色、形、质与比例", tool: "蓝筱玉美学体系打分表＋PCCS色彩条＋十字坐标工具", practice: "选一张真实空间图，完成印象坐标、主题定位、色形质拆解、比例判断和一次 AI 优化", pass: "能用工具客观说明空间哪里好、为什么好、如何优化，并达到课程要求的坐标判断准确度", openId: "aesthetic" },
   { id: "aesthetic-day-3", day: "DAY 3", title: "诊断成交", action: "从客户原话识别决策人、客户类型、生活痛点与成交路径", tool: "55387客户预判＋客户身份分层转化表＋销售七步法", practice: "拿一个真实客户完成信息记录、六大要素诊断和四型客户判断，写出三条追问、适配表达和下一步推进动作", pass: "不凭主观判断，能明确决策人和使用人，判断客户类型，围绕六大要素给出有证据的方案与下一步", openId: "customer-segment" },
   { id: "aesthetic-day-4", day: "DAY 4", title: "色彩沟通与成交", action: "用色彩四区理解沟通需要，把八大谈单痛点转成诊断式回应", tool: "色彩四区交集图＋六大要素＋8大回应术", practice: "选一个真实客户，完成一次色彩沟通假设、一个谈单痛点回应和下一步推进，并把结果沉淀为可发布的案例内容", pass: "能说明四大色彩区的特点与交集，知道色彩只是沟通假设而非人格定论；能用六大要素回应客户痛点，完成从内容引流到诊断、局部方案和下一步推进", openId: "aesthetic" },
-  { id: "aesthetic-day-5", day: "DAY 5", title: "全案流程", action: "把需求、方案、预算、产品和落地串成完整交付", tool: "全案设计六要素＋经营结果案例库", practice: "拆解一个真实方案的流程、话术与团队断点", pass: "能指出方案最容易翻车的环节及前置动作", openId: "case-library" },
-  { id: "aesthetic-day-6", day: "DAY 6", title: "配色升级", action: "用比例和色彩关系替代单品式配色", tool: "PCCS色彩条＋美学打分表", practice: "用现有项目完成一次配色比例复盘", pass: "能把配色逻辑讲成客户听得懂的方案价值", openId: "color-strip" },
-  { id: "aesthetic-day-7", day: "DAY 7", title: "综合输出", action: "把美学判断、全案思维和客户表达连成完整方法", tool: "美学打分表＋全案表达清单", practice: "完成一次空间方案的完整讲解", pass: "能用专业判断支撑方案价值", openId: "aesthetic" },
 ];
 
 const aftercareDays = [
@@ -1230,7 +1227,7 @@ export default function Home() {
             <div className="course-list">
               {visibleCourseItems.map((course) => {
                 const canAccess = Boolean(authUser && courseAccessIds.includes(course.id));
-                const showAestheticAftercare = selectedCourseTrack === "aesthetic" && course.id === "aesthetic-day-7";
+                const showAestheticAftercare = selectedCourseTrack === "aesthetic" && course.id === "aesthetic-day-4";
                 return (
                   <button key={course.day} className={canAccess ? "course-module" : "course-module locked"} onClick={() => openCourse(course)}>
                     <span className="module-day">{course.day}</span>
