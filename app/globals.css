@@ -206,6 +206,12 @@ button.focus-task { width: 100%; cursor: pointer; }
 .course-module:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
 .module-cell { margin: 0; border: 0; color: inherit; background: transparent; font: inherit; text-align: left; cursor: pointer; transition: background .18s ease; }
 .module-cell:hover, .module-cell:focus-visible { background: rgba(213,178,124,.1); outline: 0; }
+.course-module.focus-topic .module-main,
+.course-module.focus-tool .module-main + .module-detail,
+.course-module.focus-practice .module-main + .module-detail + .module-detail { background: rgba(213,178,124,.09); }
+.course-module.focus-topic .module-main strong,
+.course-module.focus-tool .module-main + .module-detail strong,
+.course-module.focus-practice .module-main + .module-detail + .module-detail strong { color: var(--cream); }
 .module-day { display: grid; place-items: center; color: var(--gold-light); background: rgba(189,140,85,.12); font-family: Georgia, serif; font-size: 13px; letter-spacing: .08em; writing-mode: vertical-rl; }
 .module-main, .module-detail, .module-pass { display: flex; min-width: 0; flex-direction: column; justify-content: center; border-right: 1px solid rgba(213,178,124,.13); padding: 19px 17px; }
 .course-module small { margin-bottom: 7px; color: rgba(213,178,124,.7); font-size: 9px; letter-spacing: .12em; }

@@ -387,6 +387,7 @@ const courseLessonContent: Record<string, CourseLesson> = {
 };
 
 type CourseColumn = "topic" | "tool" | "practice" | "pass";
+type CourseSection = "topic" | "tool" | "practice";
 const courseColumnOpenIds: Record<string, Partial<Record<CourseColumn, string>>> = {
   "growth-day-1": { topic: "needs", tool: "product-check", practice: "needs", pass: "needs" },
   "growth-day-2": { topic: "store-diagnosis", tool: "store-diagnosis", practice: "store-diagnosis", pass: "store-diagnosis" },
@@ -825,6 +826,7 @@ export default function Home() {
   const [authBusy, setAuthBusy] = useState(false);
   const [authMessage, setAuthMessage] = useState("");
   const [selectedCourseTrack, setSelectedCourseTrack] = useState<"growth" | "aesthetic">("growth");
+  const [courseSection, setCourseSection] = useState<CourseSection>("topic");
   const [aftercareOpen, setAftercareOpen] = useState(false);
   const [aftercareDay, setAftercareDay] = useState(0);
   const [aftercareDone, setAftercareDone] = useState<Record<number, boolean>>({});
@@ -1160,6 +1162,7 @@ export default function Home() {
   };
 
   const openCourseColumn = (course: (typeof courseItems)[number], column: CourseColumn) => {
+    if (column !== "pass") setCourseSection(column);
     if (!authUser || !courseAccessIds.includes(course.id)) {
       openCourse(course);
       return;
@@ -1184,6 +1187,17 @@ export default function Home() {
       return;
     }
     openItem(target);
+  };
+
+  const selectCourseTrack = (track: "growth" | "aesthetic") => {
+    setSelectedCourseTrack(track);
+    setCourseSection("topic");
+    setAftercareOpen(false);
+  };
+
+  const selectCourseSection = (section: CourseSection) => {
+    setCourseSection(section);
+    setAftercareOpen(false);
   };
 
   const selectedDownloadCourseId = selected ? requiredCourseIds(selected).find((courseId) => courseAccessIds.includes(courseId)) : undefined;
@@ -1329,11 +1343,13 @@ export default function Home() {
           <div className="course-layout">
             <aside className="filter-panel">
               <span>课程体系</span>
-              <button className={selectedCourseTrack === "growth" ? "selected" : ""} onClick={() => setSelectedCourseTrack("growth")}>7天业绩倍增突击营</button>
-              <button className={selectedCourseTrack === "aesthetic" ? "selected" : ""} onClick={() => setSelectedCourseTrack("aesthetic")}>全案色彩美学精华班</button>
+              <button className={selectedCourseTrack === "growth" ? "selected" : ""} onClick={() => selectCourseTrack("growth")}>7天业绩倍增突击营</button>
+              <button className={selectedCourseTrack === "aesthetic" ? "selected" : ""} onClick={() => selectCourseTrack("aesthetic")}>全案色彩美学精华班</button>
               <button>助教实战训练</button>
-              <span>学习方式</span><button>课程＋工具</button><button>真实案例</button>
-              <button className={aftercareOpen || selectedCourseTrack === "aesthetic" ? "selected" : ""} onClick={() => { setSelectedCourseTrack("aesthetic"); setAftercareDay(0); setAftercareOpen(true); }}>作业与通关</button>
+              <span>学习方式</span>
+              <button className={courseSection === "topic" ? "selected" : ""} onClick={() => selectCourseSection("topic")}>课程主题</button>
+              <button className={courseSection === "tool" ? "selected" : ""} onClick={() => selectCourseSection("tool")}>配套工具</button>
+              <button className={courseSection === "practice" ? "selected" : ""} onClick={() => selectCourseSection("practice")}>实战作业</button>
               <div className="course-rule"><strong>通关规则</strong><p>看完不算完成。必须用真实客户、门店或方案完成一次应用。</p></div>
             </aside>
             <div className="course-list">
@@ -1343,7 +1359,7 @@ export default function Home() {
                 return (
                   <div
                     key={course.day}
-                    className={canAccess ? "course-module" : "course-module locked"}
+                    className={`${canAccess ? "course-module" : "course-module locked"} focus-${courseSection}`}
                     role="button"
                     tabIndex={0}
                     onClick={() => openCourse(course)}
