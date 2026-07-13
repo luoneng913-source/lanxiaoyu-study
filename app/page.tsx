@@ -409,6 +409,79 @@ const courseToolContent: Record<string, CourseTool> = {
   "aesthetic-day-4": { title: "DAY 4｜色彩四区交集图与8大回应术", summary: "把色彩沟通假设、六大要素和异议回应连接成一套可执行工具。", purpose: "让色彩用于理解沟通，不用于给客户下人格定论。", inputs: ["客户原话与生活场景", "色彩四区交集图", "六大要素和8大回应术卡片"], steps: ["根据客户原话提出一个色彩沟通假设。", "用六大要素验证假设，找到客户真正关心的生活结果。", "选择最合适的一种回应术，回应顾虑后确认下一步。"], output: "一张色彩沟通假设表＋一段回应术＋下一步确认问题。" },
 };
 
+type CourseToolEntry = CourseTool & { id: string; label: string };
+const makeCourseToolEntry = (courseId: string, index: number, label: string, sourceId: string, overrides: Partial<CourseTool> = {}): CourseToolEntry => {
+  const source = courseToolContent[sourceId];
+  return {
+    ...source,
+    ...overrides,
+    id: `${courseId}-tool-${index}`,
+    label,
+    title: label,
+    summary: overrides.summary ?? `${label}：${source.summary}`,
+  };
+};
+
+const courseToolEntries: Record<string, CourseToolEntry[]> = {
+  "growth-day-1": [
+    makeCourseToolEntry("growth-day-1", 1, "门店是否还在卖产品自检表", "growth-day-1"),
+    makeCourseToolEntry("growth-day-1", 2, "心道术器认知框架", "growth-day-1", { purpose: "把门店的经营初心、底层规律、执行方法和现场工具分开检查，找到最该先补的一层能力。", inputs: ["门店当前经营目标", "最近一次客户沟通记录", "现有流程、话术和工具清单"], steps: ["分别写下心、道、术、器目前已有的做法。", "标记最影响客户体验和成交结果的一项缺口。", "为这个缺口指定一个本周可验证的动作。"], output: "一张心道术器能力盘点表＋一个优先补强动作。" }),
+  ],
+  "growth-day-2": [
+    makeCourseToolEntry("growth-day-2", 1, "门店模式四路径定位表", "growth-day-2"),
+    makeCourseToolEntry("growth-day-2", 2, "3分钟门店增长诊断", "growth-day-2", { purpose: "用3分钟快速判断门店当前处于什么经营阶段，以及下一步最适合做什么。", inputs: ["门店品类、客单和近期业绩", "现有团队与合作资源", "当前最急的增长问题"], steps: ["用一句话描述门店现在卖什么、为谁解决什么。", "快速判断客户来源、成交方式和交付能力。", "输出一个不超过30天的验证动作，并约定复盘指标。"], output: "一段3分钟门店诊断结论＋一个30天验证指标。" }),
+  ],
+  "growth-day-3": [
+    makeCourseToolEntry("growth-day-3", 1, "小蓝飞镖法4大十字坐标", "growth-day-3"),
+    makeCourseToolEntry("growth-day-3", 2, "55387客户预判", "growth-day-3", { purpose: "从客户的语气、动作、表达和决策方式提出沟通假设，帮助销售先调整接待方式。" }),
+    makeCourseToolEntry("growth-day-3", 3, "客户身份分层转化表", "growth-day-3", { purpose: "把客户真正关心的效果、服务、质量、价格与决策条件记录下来，转成下一步推进动作。" }),
+  ],
+  "growth-day-4": [
+    makeCourseToolEntry("growth-day-4", 1, "蓝筱玉美学体系打分表", "growth-day-4"),
+    makeCourseToolEntry("growth-day-4", 2, "PCCS色彩条", "growth-day-4", { purpose: "用色相、明度、纯度和色调关系定位空间印象，找到客户说的“高级、温柔或活泼”对应的色彩依据。", inputs: ["真实空间图片", "PCCS色彩条", "客户偏好的形容词"], steps: ["先标出空间主色与辅助色。", "判断色彩的明度、纯度和距离关系。", "用一句话把色彩关系翻译成客户能理解的生活感觉。"], output: "一条PCCS色彩判断＋一段客户语言表达。" }),
+    makeCourseToolEntry("growth-day-4", 3, "色形质十字坐标", "growth-day-4", { purpose: "把空间中的颜色、造型、材质和光泽放到同一张坐标里，检查它们是否共同服务于主题。", inputs: ["空间照片或方案图", "色、形、质、光关键词", "拟定的空间主题"], steps: ["分别记录色、形、质、光的主要特征。", "把每个特征放入坐标并标出冲突点。", "删除或调整最影响主题统一的一项。"], output: "一张色形质十字坐标＋一个主题统一调整点。" }),
+  ],
+  "growth-day-5": [
+    makeCourseToolEntry("growth-day-5", 1, "AIDMA法则", "growth-day-5"),
+    makeCourseToolEntry("growth-day-5", 2, "全案设计六大要素", "growth-day-5", { purpose: "从人、感觉、功能、经济、建筑、环境六个角度提问，避免只围绕产品参数沟通。", inputs: ["客户家庭成员和生活方式", "空间功能与预算", "现有建筑和环境条件"], steps: ["每个要素写出一个自然问题。", "记录客户回答中的事实、感受和限制。", "把回答转成方案里可被看见的一项设计动作。"], output: "一张六大要素问题表＋一项方案落地动作。" }),
+  ],
+  "growth-day-6": [
+    makeCourseToolEntry("growth-day-6", 1, "PCCS色球", "growth-day-6"),
+    makeCourseToolEntry("growth-day-6", 2, "配色翻车三件套", "growth-day-6"),
+    makeCourseToolEntry("growth-day-6", 3, "美搭法则", "growth-day-6", { purpose: "用主次、比例、纯度和过渡关系，让空间配色既统一又有重点。", inputs: ["空间配色方案", "主色、辅助色与点缀色", "空间面积比例"], steps: ["先确定主色与面积比例。", "再加入辅助色和中间过渡色。", "检查点缀色是否服务主题而不是抢走注意力。"], output: "一张主次比例表＋一版更稳定的配色关系。" }),
+    makeCourseToolEntry("growth-day-6", 4, "恋爱式搭配法则", "growth-day-6", { purpose: "用年龄相仿、性格相近、见识共鸣理解客户为什么喜欢某种色彩与材质组合。", inputs: ["客户年龄、性格和生活经验", "客户喜欢或排斥的空间图片", "候选色彩与材质组合"], steps: ["找出客户已经认可的色彩或材质。", "匹配相近的感觉与生活场景。", "用客户自己的语言说明组合为什么适合。"], output: "一段客户共鸣解释＋一组有依据的色材搭配。" }),
+  ],
+  "growth-day-7": [
+    makeCourseToolEntry("growth-day-7", 1, "精准销售7步法", "growth-day-7"),
+    makeCourseToolEntry("growth-day-7", 2, "客户六大要素", "growth-day-7", { purpose: "将客户的人、感觉、功能、经济、建筑、环境转成方案价值与成交证据。" }),
+    makeCourseToolEntry("growth-day-7", 3, "可视化证据链清单", "growth-day-7", { purpose: "把案例、过程、材料、效果和交付证据整理成客户能看懂、能相信的证明。", inputs: ["真实落地案例", "方案前后对比与材料信息", "客户最担心的一个风险"], steps: ["先写客户不确定什么。", "为每个疑问匹配一项可视化证据。", "按客户决策顺序排列证据并确认下一步。"], output: "一张客户疑问—证据对应表＋一份展示顺序。" }),
+  ],
+  "aesthetic-day-1": [
+    makeCourseToolEntry("aesthetic-day-1", 1, "门店是否还在卖产品自检表", "aesthetic-day-1"),
+    makeCourseToolEntry("aesthetic-day-1", 2, "经营模式选择清单", "aesthetic-day-1", { purpose: "根据门店资源、能力和目标，选择下一阶段的经营模式，而不是直接复制别人的规模。", inputs: ["门店现状与资源", "团队专业和交付能力", "想服务的客户与目标结果"], steps: ["列出四种模式的要求。", "对照现状标记具备和缺失的条件。", "选定一个方向，写出一项低风险验证动作。"], output: "一张经营模式选择表＋一项验证动作。" }),
+  ],
+  "aesthetic-day-2": [
+    makeCourseToolEntry("aesthetic-day-2", 1, "蓝筱玉美学体系打分表", "aesthetic-day-2"),
+    makeCourseToolEntry("aesthetic-day-2", 2, "PCCS色彩条", "aesthetic-day-2"),
+    makeCourseToolEntry("aesthetic-day-2", 3, "色形质十字坐标工具", "aesthetic-day-2"),
+  ],
+  "aesthetic-day-3": [
+    makeCourseToolEntry("aesthetic-day-3", 1, "55387客户预判", "aesthetic-day-3"),
+    makeCourseToolEntry("aesthetic-day-3", 2, "客户身份分层转化表", "aesthetic-day-3"),
+    makeCourseToolEntry("aesthetic-day-3", 3, "销售七步法", "aesthetic-day-3", { purpose: "判断客户目前处在建立信赖、诊断痛点、方案证明还是成交确认的哪一步。", inputs: ["客户沟通记录", "已给出的方案和证据", "客户当前异议"], steps: ["标记客户已经完成的步骤。", "找到当前最缺的一步。", "设计一个自然的下一步确认问题。"], output: "一张销售七步法阶段表＋下一步确认问题。" }),
+  ],
+  "aesthetic-day-4": [
+    makeCourseToolEntry("aesthetic-day-4", 1, "色彩四区交集图", "aesthetic-day-4"),
+    makeCourseToolEntry("aesthetic-day-4", 2, "六大要素", "aesthetic-day-4"),
+    makeCourseToolEntry("aesthetic-day-4", 3, "8大回应术", "aesthetic-day-4"),
+  ],
+};
+
+const courseToolEntryIndex = Object.values(courseToolEntries).flat().reduce<Record<string, CourseToolEntry>>((index, entry) => {
+  index[entry.id] = entry;
+  return index;
+}, {});
+
 type CourseColumn = "topic" | "tool" | "practice" | "pass";
 type CourseSection = "topic" | "tool" | "practice";
 const courseColumnOpenIds: Record<string, Partial<Record<CourseColumn, string>>> = {
@@ -1095,7 +1168,7 @@ export default function Home() {
   const selectedLessonId = selected?.id.startsWith("course-lesson-") ? selected.id.slice("course-lesson-".length) : null;
   const selectedLesson = selectedLessonId ? courseLessonContent[selectedLessonId] : null;
   const selectedToolId = selected?.id.startsWith("course-tool-") ? selected.id.slice("course-tool-".length) : null;
-  const selectedTool = selectedToolId ? courseToolContent[selectedToolId] : null;
+  const selectedTool = selectedToolId ? courseToolEntryIndex[selectedToolId] : null;
 
   const downloadCourseFile = async (courseId: string) => {
     if (!authUser) {
@@ -1190,6 +1263,24 @@ export default function Home() {
     openItem(course.openId);
   };
 
+  const openCourseTool = (course: (typeof courseItems)[number], toolId: string) => {
+    setCourseSection("tool");
+    if (!authUser || !courseAccessIds.includes(course.id)) {
+      openCourse(course);
+      return;
+    }
+    const tool = courseToolEntries[course.id]?.find((entry) => entry.id === toolId);
+    if (!tool) return;
+    setSelected({
+      id: `course-tool-${tool.id}`,
+      kind: "工具",
+      title: tool.title,
+      summary: tool.summary,
+      meta: "配套工具 · 独立工具",
+      tags: ["课程", "工具", course.day, tool.label],
+    });
+  };
+
   const openCourseColumn = (course: (typeof courseItems)[number], column: CourseColumn) => {
     if (column !== "pass") setCourseSection(column);
     if (!authUser || !courseAccessIds.includes(course.id)) {
@@ -1208,15 +1299,15 @@ export default function Home() {
       });
       return;
     }
-    if (column === "tool" && courseToolContent[course.id]) {
-      const tool = courseToolContent[course.id];
+    if (column === "tool" && courseToolEntries[course.id]?.[0]) {
+      const tool = courseToolEntries[course.id][0];
       setSelected({
-        id: `course-tool-${course.id}`,
+        id: `course-tool-${tool.id}`,
         kind: "工具",
         title: tool.title,
         summary: tool.summary,
-        meta: "配套工具 · 课程内容",
-        tags: ["课程", "工具", course.day],
+        meta: "配套工具 · 独立工具",
+        tags: ["课程", "工具", course.day, tool.label],
       });
       return;
     }
@@ -1397,6 +1488,7 @@ export default function Home() {
               {visibleCourseItems.map((course) => {
                 const canAccess = Boolean(authUser && courseAccessIds.includes(course.id));
                 const showAestheticAftercare = selectedCourseTrack === "aesthetic" && course.id === "aesthetic-day-4";
+                const toolEntries = courseToolEntries[course.id] ?? [];
                 return (
                   <div
                     key={course.day}
@@ -1410,7 +1502,7 @@ export default function Home() {
                     {canAccess ? (
                       <>
                         <button type="button" className="module-cell module-main" onClick={(event) => { event.stopPropagation(); openCourseColumn(course, "topic"); }}><small>课程主题</small><strong>{course.title}</strong><p>{course.action}</p></button>
-                        <button type="button" className="module-cell module-detail" onClick={(event) => { event.stopPropagation(); openCourseColumn(course, "tool"); }}><small>配套工具</small><strong>{course.tool}</strong></button>
+                        <div className="module-cell module-detail module-tools"><small>配套工具</small><div className="module-tool-list">{toolEntries.map((tool) => <button type="button" className="module-tool-link" key={tool.id} onClick={(event) => { event.stopPropagation(); openCourseTool(course, tool.id); }}>{tool.label}</button>)}</div></div>
                         <button type="button" className="module-cell module-detail" onClick={(event) => { event.stopPropagation(); openCourseColumn(course, "practice"); }}><small>实战作业</small><strong>{course.practice}</strong></button>
                         <button type="button" className="module-cell module-pass" onClick={(event) => { event.stopPropagation(); openCourseColumn(course, "pass"); }}>
                           <small>{showAestheticAftercare ? "作业与通关" : "通关标准"}</small>
