@@ -6,3 +6,4 @@ dist/
 !.env.example
 *.zip
 lanxiaoyu-learning-hub-eight-response-v5/
+lanxiaoyu-learning-hub-*/
