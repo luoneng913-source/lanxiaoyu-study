@@ -1301,10 +1301,6 @@ export default function Home() {
       notify("当前账号暂无该课程权限");
       return;
     }
-    if (item.id === "customer-segment") {
-      window.location.assign("/tools/customer-segment");
-      return;
-    }
     setSelected(item);
   };
 
@@ -1330,10 +1326,6 @@ export default function Home() {
     if (!tool) return;
     if (tool.label === "门店是否还在卖产品自检表") {
       openItem("product-check");
-      return;
-    }
-    if (tool.label.includes("客户身份分层转化")) {
-      window.location.assign(`/tools/customer-segment?courseId=${encodeURIComponent(course.id)}`);
       return;
     }
     setSelected({
@@ -1366,10 +1358,6 @@ export default function Home() {
     }
     if (column === "tool" && courseToolEntries[course.id]?.[0]) {
       const tool = courseToolEntries[course.id][0];
-      if (tool.label.includes("客户身份分层转化")) {
-        window.location.assign(`/tools/customer-segment?courseId=${encodeURIComponent(course.id)}`);
-        return;
-      }
       setSelected({
         id: `course-tool-${tool.id}`,
         kind: "工具",

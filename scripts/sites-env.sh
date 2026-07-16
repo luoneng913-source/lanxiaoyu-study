@@ -49,4 +49,11 @@ if [[ "$#" -eq 0 ]]; then
 fi
 
 cd "${project_root}"
+
+# Archives created on Windows may not preserve the executable bit of shell
+# helpers. Re-enter shell scripts through Bash rather than requiring `chmod`.
+if [[ "${1}" == *.sh ]]; then
+  exec bash "$@"
+fi
+
 exec "$@"
